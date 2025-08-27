@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Portfolio CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+     :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .header-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .project-card {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .project-card.hide {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+        }
+        .dark-mode .bg-white { background-color: #334155 !important; }
+        .dark-mode .text-blue-600 { color: #60a5fa !important; }
+        .dark-mode .bg-blue-600 { background-color: #2563eb !important; }
+        .dark-mode .bg-gray-50 { background-color: #1e293b !important; }
+        .dark-mode .bg-blue-50 { background-color: #1e40af !important; }
+        .dark-mode .text-gray-700, .dark-mode .text-gray-600, .dark-mode .text-gray-400 { color: #cbd5e1 !important; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+        .fade-out {
+            animation: fadeOut 0.6s forwards;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1);}
+            50% { opacity: 0.5; transform: scale(1.08);}
+        }
+        .animate-pulse {
+            animation: pulse 3s infinite;
+        }
+
+        /* Neon Line */
+        .neon-line {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+            height: 4px;
+            background: linear-gradient(to right, #3b82f6, #9333ea, #ec4899);
+            filter: blur(2px);
+            z-index: 0;
+            box-shadow: 0 0 24px 8px #a78bfa, 0 0 48px 16px #f472b6;
+            opacity: 0.7;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Preloader -->
+<div id="preloader" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+</div>
+<script>
+window.addEventListener('load', () => {
+    document.getElementById('preloader').style.display = 'none';
+});
+</script>
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-md z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-blue-600">PortfolioCV</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="hover:text-blue-600 transition">Home</a>
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#skills" class="hover:text-blue-600 transition">Skills</a>
+                <a href="#services" class="hover:text-blue-600 transition">Services</a>
+                <a href="#portfolio" class="hover:text-blue-600 transition">Portfolio</a>
+                <a href="#achievements" class="hover:text-blue-600 transition">Achievements</a>
+                <a href="#experience" class="hover:text-blue-600 transition">Experience</a>
+                <a href="#progress-tracker" class="hover:text-blue-600 transition">Progress</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+                <a href="Forum.html" id="forumLink" class="hover:text-blue-600 transition">Forum</a>
+                <a href="Blog.html" class="hover:text-blue-600 transition">Blog</a>
+            </div>
+             <button id="dark-toggle" class="ml-4 bg-gray-200 px-3 py-2 rounded-full text-gray-800 hover:bg-gray-300 transition">
+                <i class="fas fa-moon"></i>
+            </button>
+            <input type="color" id="colorPicker" value="#3b82f6" title="Pick your theme color" style="width:32px;height:32px;border:none;cursor:pointer;margin-left:16px;">
+            <button class="md:hidden">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="header-bg text-white pt-32 pb-20 relative">
+        <!-- Futuristic Animated Circles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-10 left-10 w-40 h-40 rounded-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-400 opacity-30 animate-pulse"></div>
+            <div class="absolute bottom-0 right-20 w-56 h-56 rounded-full bg-gradient-to-br from-yellow-300 via-blue-400 to-purple-500 opacity-20 animate-pulse"></div>
+            <div class="absolute top-1/2 left-1/2 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400 via-blue-400 to-purple-500 opacity-25 animate-pulse" style="transform: translate(-50%, -50%);"></div>
+        </div>
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="text-yellow-300">Hans</span></h1>
+                <h2 class="text-2xl md:text-3xl mb-6">Professional <span id="role" class="font-bold"></span></h2>
+                <p class="mb-8 text-lg">I specialize in creating exceptional digital experiences with innovative solutions and cutting-edge technologies.</p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-100 transition">Hire Me</a>
+                    <div class="relative inline-block">
+                        <button id="downloadCvBtn" class="border-2 border-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Download CV</button>
+                        <div id="cvDropdown" class="hidden absolute top-full mt-2 bg-white rounded-lg shadow-lg min-w-48 z-10">
+                            <a href="#" onclick="downloadCV('pdf')" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg"><i class="fas fa-file-pdf text-red-500 mr-2"></i>PDF Format</a>
+                            <a href="#" onclick="downloadCV('word')" class="block px-4 py-2 text-gray-700 hover:bg-gray-100"><i class="fas fa-file-word text-blue-500 mr-2"></i>Word Format</a>
+                            <a href="#" onclick="downloadCV('txt')" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg"><i class="fas fa-file-alt text-gray-500 mr-2"></i>Text Format</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <div class="w-64 h-64 bg-blue-400 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                        <img src="Asset/WhatsApp Image 2025-08-21 at 09.46.03.jpeg" alt="Professional portrait of [Your Name] wearing business casual attire in an office environment" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 bg-yellow-400 text-dark p-4 rounded-lg shadow-lg glass-card">
+    <span class="font-bold text-xl">5+</span>
+    <p>Years Experience</p>
+</div>
+                </div>
+            </div>
+        </div>
+        <!-- Neon Line -->
+        <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-400 blur-md neon-line"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">About <span class="text-blue-600">Me</span></h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center">
+                    <img src="Asset/WhatsApp Image 2025-08-21 at 08.35.37.jpeg" alt="Side profile of [Your Name] working on laptop in a modern office space" class="rounded-lg shadow-xl w-3/4 md:w-full">
+                </div>
+                <div class="md:w-2/3 md:pl-10">
+                    <h3 class="text-2xl font-semibold mb-4">Who I Am</h3>
+                    <p class="mb-6 text-gray-700">I am a dedicated programmer with more than 3 years of experience, driven by curiosity and a love for creating things that matter. My journey started at SMAN 4 Pangkalpinang High School, where I first discovered how exciting it was to transform ideas into code and solutions. That moment sparked a passion that has continued to guide me until today.
+
+Through years of practice, I have grown not only in technical skills but also in mindset. I learned that being a programmer is more than mastering languages or tools—it’s about persistence, problem-solving, and the ability to adapt to new challenges. Along the way, I faced difficulties, made mistakes, and learned from them, and those experiences shaped me into someone who values growth as much as achievement.
+
+Outside of coding, I enjoy exploring new knowledge, sharing ideas, and collaborating with people who have the same drive to build something meaningful. My vision for the future is to keep improving myself, contribute to projects that make a difference, and one day, create technology that can open opportunities for others.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div>
+                            <p><span class="font-semibold">Name:</span> Sirhan MUzaffar</p>
+                            <p><span class="font-semibold">Age:</span> 18 Years Old</p>
+                            <p><span class="font-semibold">Location:</span> Pangkal Pinang,Indonesia</p>
+                        </div>
+                        <div>
+                            <p><span class="font-semibold">Email:</span> sirhanmuzaffar.id01@gmail.com</p>
+                            <p><span class="font-semibold">Phone:</span> +6287722954608</p>
+                            <p><span class="font-semibold">Freelance:</span> Available</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-6">
+                        <div class="bg-blue-50 px-6 py-4 rounded-lg flex items-center">
+                            <i class="fas fa-medal text-blue-600 text-2xl mr-4"></i>
+                            <div>
+                                <h4 class="font-bold" id="projects-count">0</h4>
+                                <p class="text-gray-600">Projects Completed</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 px-6 py-4 rounded-lg flex items-center">
+                            <i class="fas fa-users text-blue-600 text-2xl mr-4"></i>
+                            <div>
+                                <h4 class="font-bold" id="clients-count">0</h4>
+                                <p class="text-gray-600">Happy Clients</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 px-6 py-4 rounded-lg flex items-center">
+                            <i class="fas fa-code text-blue-600 text-2xl mr-4"></i>
+                            <div>
+                                <h4 class="font-bold" id="lines-count">0</h4>
+                                <p class="text-gray-600">Lines of Code</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50 reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">My <span class="text-blue-600">Skills</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Technical Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Web Development</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>UI/UX Design</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Mobile Development</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Professional Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Communication</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Teamwork</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Project Management</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-xl font-semibold mb-6 text-center">Languages</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm">
+                        <img src="Asset/Flag_of_the_United_States_(Web_Colors).svg.png" alt="United States flag icon" class="w-12 h-12 mb-2">
+                        <h4 class="font-semibold">English</h4>
+                        <p class="text-gray-600">Fluent</p>
+                    </div>
+                    <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm">
+                        <img src="Asset/Flag_of_Indonesia.svg.png" alt="Indonesia flag icon" class="w-12 h-12 mb-2">
+                        <h4 class="font-semibold">Indonesian</h4>
+                        <p class="text-gray-600">Native</p>
+                    </div>
+                    <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm">
+                        <img src="Asset/Flag_of_Spain.svg.png" alt="Spain flag icon" class="w-12 h-12 mb-2">
+                        <h4 class="font-semibold">Spanish</h4>
+                        <p class="text-gray-600">Intermediate</p>
+                    </div>
+                    <div class="flex flex-col items-center bg-white p-6 rounded-lg shadow-sm">
+                        <img src="Asset/Flag_of_Japan.svg.png" alt="Japan flag icon" class="w-12 h-12 mb-2">
+                        <h4 class="font-semibold">Japanese</h4>
+                        <p class="text-gray-600">Basic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">My <span class="text-blue-600">Services</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Web Development</h3>
+                    <p class="text-gray-600 text-center mb-6">Pembuatan website responsif dan modern menggunakan teknologi terkini seperti HTML5, CSS3, JavaScript, dan framework populer.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-blue-600">Rp 2.5jt</span>
+                        <p class="text-sm text-gray-500">mulai dari</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-purple-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Mobile App Development</h3>
+                    <p class="text-gray-600 text-center mb-6">Pengembangan aplikasi mobile untuk Android dan iOS menggunakan Flutter atau React Native dengan performa optimal.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-purple-600">Rp 5jt</span>
+                        <p class="text-sm text-gray-500">mulai dari</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-green-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-paint-brush text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">UI/UX Design</h3>
+                    <p class="text-gray-600 text-center mb-6">Desain antarmuka yang menarik dan user experience yang optimal untuk website dan aplikasi mobile.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-green-600">Rp 1.5jt</span>
+                        <p class="text-sm text-gray-500">mulai dari</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-database text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Database Management</h3>
+                    <p class="text-gray-600 text-center mb-6">Perancangan dan pengelolaan database yang efisien untuk mendukung aplikasi web dan mobile.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-red-600">Rp 1jt</span>
+                        <p class="text-sm text-gray-500">mulai dari</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-yellow-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-cogs text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">System Integration</h3>
+                    <p class="text-gray-600 text-center mb-6">Integrasi sistem dan API untuk menghubungkan berbagai platform dan layanan third-party.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-yellow-600">Rp 3jt</span>
+                        <p class="text-sm text-gray-500">mulai dari</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-indigo-600 w-16 h-16 rounded-full flex items-center justify-center mb-6 mx-auto">
+                        <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-center mb-4">Consultation & Training</h3>
+                    <p class="text-gray-600 text-center mb-6">Konsultasi teknologi dan pelatihan programming untuk individu maupun tim perusahaan.</p>
+                    <div class="text-center">
+                        <span class="text-2xl font-bold text-indigo-600">Rp 500rb</span>
+                        <p class="text-sm text-gray-500">per sesi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-gray-600 mb-6">Butuh layanan khusus? Mari diskusikan kebutuhan project Anda!</p>
+                <a href="#contact" class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">Konsultasi Gratis</a>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-white text-center">
+                <h3 class="text-2xl font-bold mb-4">Stay Updated!</h3>
+                <p class="mb-6">Dapatkan tips programming, update project terbaru, dan insight teknologi langsung ke email Anda.</p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" id="newsletterEmail" placeholder="Masukkan email Anda" class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button onclick="subscribeNewsletter()" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Subscribe</button>
+                </div>
+                <p class="text-sm mt-4 opacity-80">No spam, unsubscribe kapan saja.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">My <span class="text-blue-600">Portfolio</span></h2>
+            
+            <div class="flex justify-center mb-10">
+                <div class="flex space-x-4 bg-gray-100 p-2 rounded-full">
+                    <button class="px-6 py-2 rounded-full bg-blue-600 text-white filter-btn" data-filter="all">All</button>
+                    <button class="px-6 py-2 rounded-full hover:bg-blue-100 filter-btn" data-filter="web">Web</button>
+                    <button class="px-6 py-2 rounded-full hover:bg-blue-100 filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="px-6 py-2 rounded-full hover:bg-blue-100 filter-btn" data-filter="design">Design</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300" data-category="web">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/800x500" alt="Modern e-commerce website dashboard interface with analytics graphs and product listings" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-blue-600 opacity-0 hover:opacity-90 transition duration-300 flex items-center justify-center">
+                            <div class="flex space-x-2">
+                                <button onclick="openCaseStudy('ecommerce')" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Case Study</button>
+                                <a href="#" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">E-Commerce Platform</h3>
+                        <p class="text-gray-600 mb-4">A complete online shopping solution with payment integration.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Node.js</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300" data-category="mobile">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/800x500" alt="Mobile banking application interface showing transaction history and payment options" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-blue-600 opacity-0 hover:opacity-90 transition duration-300 flex items-center justify-center">
+                            <div class="flex space-x-2">
+                                <button onclick="openCaseStudy('banking')" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Case Study</button>
+                                <a href="#" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Banking Mobile App</h3>
+                        <p class="text-gray-600 mb-4">Secure mobile banking application with biometric authentication.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Flutter</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300" data-category="design">
+                    <div class="relative overflow-hidden">
+                        <img src="https://placehold.co/800x500" alt="Healthcare dashboard showing patient statistics, appointment scheduling and medical records" class="w-full h-48 object-cover">
+                        <div class="absolute inset-0 bg-blue-600 opacity-0 hover:opacity-90 transition duration-300 flex items-center justify-center">
+                            <div class="flex space-x-2">
+                                <button onclick="openCaseStudy('healthcare')" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Case Study</button>
+                                <a href="#" class="text-white font-semibold border-2 border-white px-4 py-2 rounded-full hover:bg-white hover:text-blue-600 transition">Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Healthcare Management</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive system for hospitals and clinics.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Laravel</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition">Load More</button>
+            </div>
+            
+            <!-- Project Case Studies Modal -->
+            <div id="caseStudyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-xl max-w-4xl w-full max-h-90vh overflow-y-auto">
+                    <div class="p-6 border-b">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold" id="modalTitle">Project Case Study</h3>
+                            <button onclick="closeCaseStudy()" class="text-gray-500 hover:text-gray-700">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6" id="modalContent">
+                        <!-- Content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 bg-gray-50 reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Achievements & <span class="text-blue-600">Certificates</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Certificate 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-certificate text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">Web Development Certification</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Certified Web Developer dengan spesialisasi dalam React.js dan Node.js</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2023</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Verified</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certificate 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-green-500 to-teal-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-mobile-alt text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">Mobile App Development</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Flutter & React Native Developer Certification</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2023</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Verified</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certificate 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-paint-brush text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">UI/UX Design Expert</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Professional UI/UX Designer dengan Figma & Adobe XD</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2022</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Verified</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-yellow-500 to-orange-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-trophy text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">Best Developer Award</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Juara 1 Kompetisi Web Development Tingkat SMA</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2023</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Winner</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-red-500 to-pink-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-star text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">5-Star Rating</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Rating 5 bintang dari 50+ klien di platform freelance</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2023</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Achievement 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:transform hover:-translate-y-2">
+                    <div class="bg-gradient-to-r from-indigo-500 to-blue-600 p-6">
+                        <div class="text-center">
+                            <i class="fas fa-users text-white text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">Community Leader</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">Founder & Leader Komunitas Developer Bangka Belitung</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">2022</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Leader</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="mt-16 bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-2xl font-bold text-center mb-8">Achievement <span class="text-blue-600">Statistics</span></h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-certificate text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-blue-600" id="cert-count">0</h4>
+                        <p class="text-gray-600">Certificates</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-trophy text-green-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-green-600" id="award-count">0</h4>
+                        <p class="text-gray-600">Awards</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star text-purple-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-purple-600" id="rating-count">0</h4>
+                        <p class="text-gray-600">Average Rating</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-graduation-cap text-yellow-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-yellow-600" id="training-count">0</h4>
+                        <p class="text-gray-600">Training Hours</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-50 reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Work <span class="text-blue-600">Experience</span> & Education</h2>
+            
+            <div class="relative pt-10 pb-10">
+                <!-- Timeline line -->
+                <div class="timeline absolute top-0 left-1/2 h-full"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-10">
+                    <!-- Experience 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 pr-4 md:text-right mb-4 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <span class="text-blue-600 font-semibold">2025 - Present</span>
+                                <h3 class="text-xl font-bold mt-2">Mahasiswa</h3>
+                                <p class="text-gray-600 mb-2">UNIVERSITAS BANGKA BELITUNG</p>
+                                <p class="text-gray-700">Mahasiswa Baru Di UNIVERSITAS BANGKA BELITUNG,Fakultas Sains Dan Teknik, Jurusan Sains Alam Dan Ilmu Formal, Program Studi: Teknologi Informasi.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:block w-1/2 pl-4"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 md:translate-x-0 w-6 h-6 bg-blue-600 rounded-full border-4 border-white"></div>
+                    </div>
+                    
+                    <!-- Experience 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center md:items-end">
+                        <div class="hidden md:block md:w-1/2 pr-4"></div>
+                        <div class="md:w-1/2 pl-4 mb-4 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <span class="text-blue-600 font-semibold">2022 - 2025</span>
+                                <h3 class="text-xl font-bold mt-2">Siswa Menengah Atas</h3>
+                                <p class="text-gray-600 mb-2">SMA NEGERI 4 PANGKALPINANG</p>
+                                <p class="text-gray-700">Pernah Bersekolah Di SMA NEGERI 4 PNGKALPINANG Selama 3 Tahun.</p>
+                            </div>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 md:translate-x-0 w-6 h-6 bg-blue-600 rounded-full border-4 border-white"></div>
+                    </div>
+                    
+                    <!-- Education 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 pr-4 md:text-right mb-4 md:mb-0">
+                            <div class="bg-white p-6 rounded-lg shadow-md">
+                                <span class="text-blue-600 font-semibold">2019 - 2022</span>
+                                <h3 class="text-xl font-bold mt-2">Siswa Menengah Pertama</h3>
+                                <p class="text-gray-600 mb-2">SMP NEGERI 9 PANGKALPINANG</p>
+                                <p class="text-gray-700">Pernah Bersekolah Di SMP NEGERI 9 PANGKALPINANG Selama 3 Tahun.</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:block w-1/2 pl-4"></div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 md:translate-x-0 w-6 h-6 bg-blue-600 rounded-full border-4 border-white"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Testimonials & Reviews Section -->
+<section id="testimonials" class="py-20 bg-gray-50 reveal">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-16">Client <span class="text-blue-600">Reviews & Testimonials</span></h2>
+        
+        <!-- Overall Rating Display -->
+        <div class="text-center mb-12">
+            <div class="bg-white rounded-xl shadow-lg p-8 max-w-md mx-auto">
+                <div class="text-4xl font-bold text-blue-600 mb-2" id="overallRating">4.9</div>
+                <div class="flex justify-center mb-2" id="overallStars">
+                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                </div>
+                <p class="text-gray-600">Berdasarkan <span id="totalReviews">47</span> review</p>
+                <button onclick="showReviewForm()" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Tulis Review</button>
+            </div>
+        </div>
+        
+        <!-- Review Form Modal -->
+        <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl max-w-md w-full p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Tulis Review</h3>
+                    <button onclick="closeReviewForm()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="reviewForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Rating</label>
+                        <div class="flex space-x-1" id="starRating">
+                            <i class="fas fa-star text-gray-300 text-2xl cursor-pointer hover:text-yellow-400" data-rating="1"></i>
+                            <i class="fas fa-star text-gray-300 text-2xl cursor-pointer hover:text-yellow-400" data-rating="2"></i>
+                            <i class="fas fa-star text-gray-300 text-2xl cursor-pointer hover:text-yellow-400" data-rating="3"></i>
+                            <i class="fas fa-star text-gray-300 text-2xl cursor-pointer hover:text-yellow-400" data-rating="4"></i>
+                            <i class="fas fa-star text-gray-300 text-2xl cursor-pointer hover:text-yellow-400" data-rating="5"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="reviewerName" class="block text-gray-700 mb-2">Nama</label>
+                        <input type="text" id="reviewerName" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="reviewerRole" class="block text-gray-700 mb-2">Posisi/Perusahaan</label>
+                        <input type="text" id="reviewerRole" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="reviewText" class="block text-gray-700 mb-2">Review</label>
+                        <textarea id="reviewText" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">Submit Review</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Testimonial Carousel -->
+        <div class="max-w-2xl mx-auto relative">
+            <div id="testimonial-carousel" class="bg-white rounded-lg shadow-lg p-8 text-center transition-all duration-500">
+                <!-- Testimonial content will be injected here -->
+            </div>
+            <div class="flex justify-center mt-8 space-x-4">
+                <button id="prev-testimonial" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">&larr;</button>
+                <button id="next-testimonial" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition">&rarr;</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+const testimonials = [
+    {
+        name: "Jessica Lee",
+        role: "Project Manager, TechSolutions Inc.",
+        text: "Hans is a highly skilled developer who consistently delivers quality work. His attention to detail and innovative solutions have greatly benefited our projects.",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+    },
+    {
+        name: "Michael Tan",
+        role: "CEO, Digital Agency XYZ",
+        text: "Professional, reliable, and creative. Hans exceeded our expectations in every aspect of the project.",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+        name: "Siti Rahma",
+        role: "Designer",
+        text: "Working with Hans was a pleasure. He communicates clearly and brings great ideas to the table.",
+        avatar: "https://randomuser.me/api/portraits/women/65.jpg"
+    }
+];
+
+let currentTestimonial = 0;
+
+function showTestimonial(index) {
+    const t = testimonials[index];
+    document.getElementById('testimonial-carousel').innerHTML = `
+        <img src="${t.avatar}" alt="${t.name}" class="mx-auto mb-4 w-20 h-20 rounded-full object-cover border-4 border-blue-600">
+        <p class="text-lg text-gray-700 mb-6">"${t.text}"</p>
+        <h4 class="font-bold text-blue-600">${t.name}</h4>
+        <p class="text-gray-500">${t.role}</p>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showTestimonial(currentTestimonial);
+    document.getElementById('prev-testimonial').onclick = () => {
+        currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    };
+    document.getElementById('next-testimonial').onclick = () => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    };
+});
+</script>
+
+    <!-- Project Progress Tracker Section -->
+    <section id="progress-tracker" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Project <span class="text-blue-600">Progress Tracker</span></h2>
+            <p class="text-center text-gray-600 mb-12">Pantau progress project Anda secara real-time</p>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Sample Project Progress -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">E-Commerce Website - CyberStore</h3>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">In Progress</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Progress: 75%</span>
+                            <span>Deadline: The deadline is flexible</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Planning</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Design</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full mx-auto mb-2 flex items-center justify-center animate-pulse">
+                                <i class="fas fa-code text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Development</p>
+                            <p class="text-xs text-gray-500">In Progress</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-gray-300 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-rocket text-gray-500 text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Deployment</p>
+                            <p class="text-xs text-gray-500">Pending</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Another Sample Project -->
+                <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Landing Page Promotion - SMAN 4 Pangkalpinang</h3>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Completed</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Progress: 100%</span>
+                            <span>Completed: 10 Aug 2025</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-green-500 to-teal-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Planning</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Design</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Development</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2 flex items-center justify-center">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <p class="text-sm font-semibold">Deployment</p>
+                            <p class="text-xs text-gray-500">Completed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <p class="text-gray-600 mb-4">Ingin memantau progress project Anda? Hubungi saya untuk akses tracker khusus.</p>
+                    <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Request Access</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16">Get In <span class="text-blue-600">Touch</span></h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    <p class="text-gray-700 mb-8">Feel free to reach out for collaborations or just a friendly hello. I'll get back to you as soon as possible.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-4 rounded-full mr-6">
+                                <i class="fas fa-map-marker-alt text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Address</h4>
+                                <p class="text-gray-600">Jl. Yos Sudarso, Gabek Dua, Kec. Gabek, Kota Pangkalpinang, Kepulauan Bangka  belitung 33172 Indonesia.</p>
+                                <!-- Google Maps Embed -->
+                                <div class="mt-4 rounded-lg overflow-hidden shadow-lg">
+                                    <iframe
+                                        src="https://www.google.com/maps?q=Jl.+Yos+Sudarso,+Gabek+Dua,+Kec.+Gabek,+Kota+Pangkalpinang,+Kepulauan+Bangka+Belitung+33172+Indonesia.&output=embed"
+                                        width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-4 rounded-full mr-6">
+                                <i class="fas fa-envelope text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Email</h4>
+                                <p class="text-gray-600">sirhanmuzaffar.id01@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-4 rounded-full mr-6">
+                                <i class="fas fa-phone-alt text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Phone</h4>
+                                <p class="text-gray-600">+62 877 2295 84608</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <h4 class="font-semibold mb-4">Follow Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://x.com/HansZknightID" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://github.com/HansZknight" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/hanszknight_?igsh=MWp0Zzhxdnp5enRieg==" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6">Send Me a Message</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status & Photo Upload Section -->
+<section id="status-upload" class="py-20 bg-white reveal">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">Share <span class="text-blue-600">Status & Photo</span></h2>
+        <div class="max-w-xl mx-auto bg-gray-50 rounded-lg shadow-md p-8">
+            <form id="uploadForm" class="space-y-6">
+                <div>
+                    <label for="statusText" class="block text-gray-700 mb-2">Status</label>
+                    <textarea id="statusText" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="What's on your mind?"></textarea>
+                </div>
+                <div>
+                    <label for="photoInput" class="block text-gray-700 mb-2">Photo</label>
+                    <input type="file" id="photoInput" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                </div>
+                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">Upload</button>
+            </form>
+            <div id="previewArea" class="mt-8"></div>
+        </div>
+    </div>
+</section>
+<script>
+document.getElementById('uploadForm').onsubmit = function(e) {
+    e.preventDefault();
+    const status = document.getElementById('statusText').value;
+    const photoInput = document.getElementById('photoInput');
+    const preview = document.getElementById('previewArea');
+    preview.innerHTML = '';
+    if (status) {
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'mb-4 p-4 bg-white rounded shadow text-gray-800';
+        statusDiv.textContent = status;
+        preview.appendChild(statusDiv);
+    }
+    if (photoInput.files && photoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'w-full max-h-64 object-cover rounded-lg shadow';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+    }
+};
+</script>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold">PortfolioCV</a>
+                    <p class="mt-4 text-gray-400">Creating digital experiences that matter.</p>
+                </div>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+                    <div>
+                        <h4 class="font-bold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                            <li><a href="#about" class="text-gray-400 hover:text-white transition">About</a></li>
+                            <li><a href="#skills" class="text-gray-400 hover:text-white transition">Skills</a></li>
+                            <li><a href="#portfolio" class="text-gray-400 hover:text-white transition">Portfolio</a></li>
+                            <li><a href="#progress-tracker" class="text-gray-400 hover:text-white transition">Progress</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold mb-4">Connect</h4>
+                        <ul class="space-y-2">
+                            <li><a href="https://linkedin.com/in/sirhanmuzaffar" class="text-gray-400 hover:text-white transition">LinkedIn</a></li>
+                            <li><a href="https://x.com/HansZknightID" class="text-gray-400 hover:text-white transition">Twitter</a></li>
+                            <li><a href="https://github.com/HansZknight" class="text-gray-400 hover:text-white transition">GitHub</a></li>
+                            <li><a href="https://www.instagram.com/hanszknight_" class="text-gray-400 hover:text-white transition">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 PortfolioCV. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script>
+        // Auto-typing effect for the hero section
+        const roles = ["Web Developer", "UI/UX Designer", "Mobile Developer"];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+        
+        const type = () => {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                document.getElementById('role').textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                document.getElementById('role').textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                typingSpeed = 1500; // Pause at end of word
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typingSpeed = 500; // Pause before typing new word
+            }
+            
+            setTimeout(type, typingSpeed);
+        };
+        
+        // Start typing effect after page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(type, 1000);
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script> 
+    <style src="https://unpkg.com/scrollreveal">/* Efek transition untuk navbar */
+nav {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* Efek hover untuk tombol */
+button, a[href^="#"] {
+    transition: all 0.3s ease;
+}
+
+/* Animasi untuk timeline */
+.timeline-item {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+.timeline-item:nth-child(odd) {
+    transform: translateX(-50px);
+    opacity: 0;
+}
+.timeline-item:nth-child(even) {
+    transform: translateX(50px);
+    opacity: 0;
+}
+.timeline-item.visible {
+    transform: translateX(0);
+    opacity: 1;
+}.timeline-item.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+    
+</style>
+<script>
+// Animated Counter for About Section
+function animateCounter(id, target, duration = 1500) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let start = 0;
+    const increment = target / (duration / 30);
+    function update() {
+        start += increment;
+        if (start < target) {
+            el.textContent = Math.floor(start);
+            requestAnimationFrame(update);
+        } else {
+            el.textContent = target;
+        }
+    }
+    update();
+}
+
+// Trigger animation when About section is in view
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+}
+
+let countersAnimated = false;
+window.addEventListener('scroll', () => {
+    if (countersAnimated) return;
+    const aboutSection = document.getElementById('about');
+    if (aboutSection && isInViewport(aboutSection)) {
+        animateCounter('projects-count', 12); // Change 12 to your real number
+        animateCounter('clients-count', 10);   // Change 8 to your real number
+        animateCounter('lines-count', 10000);  // Change 1200 to your real number
+        countersAnimated = true;
+    }
+});
+
+// Achievement counters animation
+let achievementCountersAnimated = false;
+window.addEventListener('scroll', () => {
+    if (achievementCountersAnimated) return;
+    const achievementSection = document.getElementById('achievements');
+    if (achievementSection && isInViewport(achievementSection)) {
+        animateCounter('cert-count', 8);
+        animateCounter('award-count', 5);
+        animateCounter('rating-count', 4.9);
+        animateCounter('training-count', 43830);
+        achievementCountersAnimated = true;
+    }
+});
+</script>
+<script>
+function animateSkillBars() {
+    document.querySelectorAll('.skill-progress').forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => { bar.style.transition = 'width 1.2s'; bar.style.width = width; }, 200);
+    });
+}
+let skillsAnimated = false;
+window.addEventListener('scroll', () => {
+    if (skillsAnimated) return;
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection && skillsSection.getBoundingClientRect().top < window.innerHeight) {
+        animateSkillBars();
+        skillsAnimated = true;
+    }
+});
+</script>
+<script>
+document.getElementById('dark-toggle').onclick = function() {
+    document.body.classList.toggle('dark-mode');
+    if(document.body.classList.contains('dark-mode')) {
+        document.body.style.backgroundColor = '#1e293b';
+        document.body.style.color = '#f8fafc';
+    } else {
+        document.body.style.backgroundColor = '';
+        document.body.style.color = '';
+    }
+};
+</script>
+<!-- Tombol WhatsApp bulat -->
+<button id="waBubbleBtn" style="position:fixed;bottom:30px;left:30px;z-index:1000;width:60px;height:60px;border-radius:50%;background:#25d366;box-shadow:0 4px 16px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;">
+    <i class="fab fa-whatsapp" style="font-size:2rem;color:white;"></i>
+</button>
+
+<!-- Pop-up chat WhatsApp -->
+<div id="waPopup" style="display:none;position:fixed;bottom:100px;left:30px;z-index:1001;background:white;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.18);padding:24px 20px;width:320px;max-width:90vw;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;">
+            <i class="fab fa-whatsapp" style="font-size:1.5rem;color:#25d366;margin-right:8px;"></i>
+            <span style="font-weight:bold;">Chat via WhatsApp</span>
+        </div>
+        <button id="waCloseBtn" style="background:none;border:none;font-size:1.2rem;cursor:pointer;">&times;</button>
+    </div>
+    <hr style="margin:12px 0;">
+    <p style="margin-bottom:16px;color:#222;">Halo! Klik tombol di bawah untuk mulai chat dengan saya di WhatsApp.</p>
+    <a href="https://wa.me/6287722954608" target="_blank" style="display:block;background:#25d366;color:white;text-align:center;padding:12px 0;border-radius:8px;font-weight:bold;text-decoration:none;">
+        Mulai Chat
+    </a>
+</div>
+
+<script>
+// Show pop-up saat tombol bulat diklik
+document.getElementById('waBubbleBtn').onclick = function() {
+    document.getElementById('waPopup').style.display = 'block';
+};
+// Tutup pop-up saat tombol close diklik
+document.getElementById('waCloseBtn').onclick = function() {
+    document.getElementById('waPopup').style.display = 'none';
+};
+// Tutup pop-up jika klik di luar area pop-up
+window.onclick = function(event) {
+    const popup = document.getElementById('waPopup');
+    const btn = document.getElementById('waBubbleBtn');
+    if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== btn) {
+        popup.style.display = 'none';
+    }
+};
+</script>
+<!-- Tambahkan di akhir sebelum </body> -->
+<button id="scrollTopBtn" style="display:none;position:fixed;bottom:30px;right:30px;z-index:99;" class="bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-blue-700 transition">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<script>
+window.onscroll = function() {
+    document.getElementById('scrollTopBtn').style.display = (window.scrollY > 300) ? 'block' : 'none';
+};
+document.getElementById('scrollTopBtn').onclick = function() {
+    window.scrollTo({top:0, behavior:'smooth'});
+};
+</script>
+<script>
+function revealOnScroll() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) {
+            el.classList.add('visible');
+        }
+    });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('DOMContentLoaded', revealOnScroll);
+</script>
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80;
+        if (window.scrollY >= sectionTop) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.classList.remove('text-blue-600', 'font-bold');
+        if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('text-blue-600', 'font-bold');
+        }
+    });
+});
+</script>
+<script>
+document.getElementById('forumLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(function() {
+        window.location.href = 'Forum.html';
+    }, 600); // Durasi animasi fadeOut
+});
+</script>
+<!-- Tambahkan sebelum Footer -->
+<section id="faq" class="py-20 bg-gray-50 reveal">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center mb-10">Frequently Asked <span class="text-blue-600">Questions</span></h2>
+        <div class="max-w-2xl mx-auto">
+            <div class="faq-item mb-4 border-b">
+                <button class="w-full text-left py-4 font-semibold text-gray-800 flex justify-between items-center faq-toggle">
+                    Apa keahlian utama Hans?
+                    <span class="faq-arrow">&#9660;</span>
+                </button>
+                <div class="faq-content hidden pb-4 text-gray-600">
+                    Web development, UI/UX design, dan mobile development.
+                </div>
+            </div>
+            <div class="faq-item mb-4 border-b">
+                <button class="w-full text-left py-4 font-semibold text-gray-800 flex justify-between items-center faq-toggle">
+                    Apakah bisa kerja remote/freelance?
+                    <span class="faq-arrow">&#9660;</span>
+                </button>
+                <div class="faq-content hidden pb-4 text-gray-600">
+                    Ya, Hans tersedia untuk kerja remote dan freelance.
+                </div>
+            </div>
+            <div class="faq-item mb-4 border-b">
+                <button class="w-full text-left py-4 font-semibold text-gray-800 flex justify-between items-center faq-toggle">
+                    Bagaimana cara menghubungi Hans?
+                    <span class="faq-arrow">&#9660;</span>
+                </button>
+                <div class="faq-content hidden pb-4 text-gray-600">
+                    Bisa lewat WhatsApp, email, atau form kontak di website ini.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+document.querySelectorAll('.faq-toggle').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const content = this.parentElement.querySelector('.faq-content');
+        content.classList.toggle('hidden');
+        this.querySelector('.faq-arrow').textContent = content.classList.contains('hidden') ? '▼' : '▲';
+    });
+});
+</script>
+<script>
+document.getElementById('colorPicker').addEventListener('input', function() {
+    document.documentElement.style.setProperty('--primary', this.value);
+});
+</script>
+<script>
+// Download CV Functionality
+document.getElementById('downloadCvBtn').addEventListener('click', function() {
+    document.getElementById('cvDropdown').classList.toggle('hidden');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('#downloadCvBtn') && !e.target.closest('#cvDropdown')) {
+        document.getElementById('cvDropdown').classList.add('hidden');
+    }
+});
+
+function downloadCV(format) {
+    // Simulate CV download
+    const fileName = `Hans_Sirhan_CV.${format === 'word' ? 'docx' : format}`;
+    alert(`Downloading ${fileName}...\n\nNote: Ini adalah demo. Dalam implementasi nyata, file akan didownload.`);
+    document.getElementById('cvDropdown').classList.add('hidden');
+}
+
+// Newsletter Subscription
+function subscribeNewsletter() {
+    const email = document.getElementById('newsletterEmail').value;
+    if (!email) {
+        alert('Mohon masukkan email Anda.');
+        return;
+    }
+    if (!email.includes('@')) {
+        alert('Mohon masukkan email yang valid.');
+        return;
+    }
+    alert(`Terima kasih! Email ${email} telah berhasil didaftarkan untuk newsletter.\n\nAnda akan menerima update terbaru dari Hans.`);
+    document.getElementById('newsletterEmail').value = '';
+}
+
+// Case Study Modal Functions
+const caseStudies = {
+    ecommerce: {
+        title: 'E-Commerce Platform Case Study',
+        content: `
+            <div class="space-y-6">
+                <img src="https://placehold.co/800x400" alt="E-commerce project" class="w-full rounded-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Project Overview</h4>
+                        <p class="text-gray-600 mb-4">Pengembangan platform e-commerce lengkap untuk PT. Digital Solutions dengan fitur manajemen produk, sistem pembayaran, dan analytics dashboard.</p>
+                        <h4 class="font-bold text-lg mb-3">Technologies Used</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React.js</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Node.js</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">MongoDB</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Stripe API</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>User authentication & authorization</li>
+                            <li>Product catalog management</li>
+                            <li>Shopping cart & checkout</li>
+                            <li>Payment gateway integration</li>
+                            <li>Order tracking system</li>
+                            <li>Admin dashboard</li>
+                            <li>Responsive design</li>
+                        </ul>
+                        <h4 class="font-bold text-lg mb-3 mt-4">Results</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>50% increase in online sales</li>
+                            <li>Improved user experience</li>
+                            <li>Reduced cart abandonment by 30%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `
+    },
+    banking: {
+        title: 'Mobile Banking App Case Study',
+        content: `
+            <div class="space-y-6">
+                <img src="https://placehold.co/800x400" alt="Banking app project" class="w-full rounded-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Project Overview</h4>
+                        <p class="text-gray-600 mb-4">Pengembangan aplikasi mobile banking untuk Bank Mandiri dengan fokus pada keamanan, user experience, dan fitur lengkap perbankan digital.</p>
+                        <h4 class="font-bold text-lg mb-3">Technologies Used</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Flutter</span>
+                            <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">Firebase</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">REST API</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Biometric Auth</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Biometric authentication</li>
+                            <li>Account balance & history</li>
+                            <li>Fund transfer</li>
+                            <li>Bill payments</li>
+                            <li>QR code payments</li>
+                            <li>Investment portfolio</li>
+                            <li>Customer support chat</li>
+                        </ul>
+                        <h4 class="font-bold text-lg mb-3 mt-4">Results</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>4.8/5 app store rating</li>
+                            <li>1M+ downloads in 6 months</li>
+                            <li>60% reduction in branch visits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `
+    },
+    healthcare: {
+        title: 'Healthcare Management System Case Study',
+        content: `
+            <div class="space-y-6">
+                <img src="https://placehold.co/800x400" alt="Healthcare system project" class="w-full rounded-lg">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Project Overview</h4>
+                        <p class="text-gray-600 mb-4">Sistem manajemen rumah sakit komprehensif untuk RS. Sehat Sentosa dengan fitur manajemen pasien, jadwal dokter, dan rekam medis digital.</p>
+                        <h4 class="font-bold text-lg mb-3">Technologies Used</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Laravel</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">MySQL</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Chart.js</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>Patient registration & records</li>
+                            <li>Doctor scheduling system</li>
+                            <li>Appointment booking</li>
+                            <li>Medical history tracking</li>
+                            <li>Prescription management</li>
+                            <li>Billing & insurance</li>
+                            <li>Analytics dashboard</li>
+                        </ul>
+                        <h4 class="font-bold text-lg mb-3 mt-4">Results</h4>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li>40% faster patient processing</li>
+                            <li>Paperless medical records</li>
+                            <li>Improved patient satisfaction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `
+    }
+};
+
+function openCaseStudy(projectId) {
+    const study = caseStudies[projectId];
+    if (study) {
+        document.getElementById('modalTitle').textContent = study.title;
+        document.getElementById('modalContent').innerHTML = study.content;
+        document.getElementById('caseStudyModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCaseStudy() {
+    document.getElementById('caseStudyModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Review System Functions
+let selectedRating = 0;
+
+function showReviewForm() {
+    document.getElementById('reviewModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeReviewForm() {
+    document.getElementById('reviewModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    // Reset form
+    selectedRating = 0;
+    document.getElementById('reviewForm').reset();
+    updateStarDisplay();
+}
+
+// Star rating functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('#starRating i');
+    stars.forEach((star, index) => {
+        star.addEventListener('click', function() {
+            selectedRating = index + 1;
+            updateStarDisplay();
+        });
+        
+        star.addEventListener('mouseenter', function() {
+            highlightStars(index + 1);
+        });
+    });
+    
+    document.getElementById('starRating').addEventListener('mouseleave', function() {
+        updateStarDisplay();
+    });
+    
+    // Review form submission
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (selectedRating === 0) {
+            alert('Mohon pilih rating terlebih dahulu.');
+            return;
+        }
+        
+        const name = document.getElementById('reviewerName').value;
+        const role = document.getElementById('reviewerRole').value;
+        const text = document.getElementById('reviewText').value;
+        
+        // Simulate adding review
+        alert(`Terima kasih ${name}!\n\nReview Anda (${selectedRating} bintang) telah berhasil dikirim dan akan ditampilkan setelah moderasi.`);
+        closeReviewForm();
+    });
+});
+
+function highlightStars(rating) {
+    const stars = document.querySelectorAll('#starRating i');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.remove('text-gray-300');
+            star.classList.add('text-yellow-400');
+        } else {
+            star.classList.remove('text-yellow-400');
+            star.classList.add('text-gray-300');
+        }
+    });
+}
+
+function updateStarDisplay() {
+    highlightStars(selectedRating);
+}
+
+// Close modals when clicking outside
+document.addEventListener('click', function(e) {
+    if (e.target.id === 'caseStudyModal') {
+        closeCaseStudy();
+    }
+    if (e.target.id === 'reviewModal') {
+        closeReviewForm();
+    }
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Highlight active button
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-blue-600', 'text-white'));
+        this.classList.add('bg-blue-600', 'text-white');
+
+        const filter = this.getAttribute('data-filter');
+        document.querySelectorAll('.project-card').forEach(card => {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                card.classList.remove('hide');
+            } else {
+                card.classList.add('hide');
+            }
+        });
+    });
+});
+</script>
+
+
+<!-- Tombol Musik Floating di Kanan Atas -->
+<button id="musicBtn" class="fixed top-4 right-4 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-full shadow-lg flex items-center space-x-2 z-50">
+  <span id="musicIcon">🎵</span>
+  <span id="musicText">Pause</span>
+</button>
+
+<!-- Musik Latar -->
+<audio id="bgMusic" loop autoplay>
+  <source src="Asset/wwd.mp3juice.blog - Work Study Lofi Jazz - Relaxing Smooth Background Jazz Music for Work, Study, Focus, Coding (320 KBps) (mp3cut.net).mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  // Musik
+  const bgMusic = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+  const musicIcon = document.getElementById("musicIcon");
+  const musicText = document.getElementById("musicText");
+
+  bgMusic.volume = 1.0;
+
+  musicBtn.addEventListener("click", () => {
+    if(bgMusic.paused){
+      bgMusic.play();
+      musicIcon.textContent = "🎵";
+      musicText.textContent = "Pause";
+    } else {
+      bgMusic.pause();
+      musicIcon.textContent = "🔇";
+      musicText.textContent = "Play";
+    }
+  });
+</Script>
+
+<!-- Background Partikel -->
+<div id="particles-js" class="fixed inset-0 z-0 pointer-events-none"></div>
+
+
+<!-- Chatbot Button -->
+<button id="chatBtn" class="fixed bottom-20 right-4 bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-full z-50 shadow-lg flex items-center space-x-2">
+  💬 Chat AI
+</button>
+<!-- Chatbot Container -->
+<div id="chatContainer" class="fixed bottom-28 right-4 w-80 h-96 bg-gray-900 text-white rounded-lg shadow-xl p-4 hidden flex flex-col z-50">
+  <div class="flex justify-between items-center mb-2">
+    <h3 class="font-bold text-lg">AI Assistant</h3>
+    <button id="chatClose" class="text-gray-400 hover:text-white font-bold">✖</button>
+  </div>
+  <div class="flex-1 overflow-auto mb-2" id="chatMessages"></div>
+  <div class="flex flex-col gap-2">
+    <input type="text" id="chatInput" placeholder="Type your question..." class="flex-1 p-2 rounded bg-gray-700 text-white"/>
+    <div class="flex gap-2 mt-1">
+      <button class="quickBtn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-msg="Hello">Hello</button>
+      <button class="quickBtn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-msg="Skills">Skills</button>
+      <button class="quickBtn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-msg="Projects">Projects</button>
+      <button class="quickBtn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-msg="Contact">Contact</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const chatBtn = document.getElementById("chatBtn");
+  const chatContainer = document.getElementById("chatContainer");
+  const chatClose = document.getElementById("chatClose");
+  const chatMessages = document.getElementById("chatMessages");
+  const chatInput = document.getElementById("chatInput");
+  const quickBtns = document.querySelectorAll(".quickBtn");
+
+  // Toggle Chatbot visibility
+  chatBtn.addEventListener("click", () => {
+    chatContainer.classList.toggle("hidden");
+    chatInput.focus();
+  });
+
+  chatClose.addEventListener("click", () => {
+    chatContainer.classList.add("hidden");
+  });
+
+  // AI Responses
+  const aiResponses = {
+    "hello": ["Hi! I'm Hans' AI Assistant. How can I help you today?", "Hello there! Need info about Hans?"],
+    "who are you": ["I'm an AI assistant here to help you learn about Hans.", "I assist visitors to explore Hans' portfolio."],
+    "skills": ["Hans is skilled in HTML, CSS, JS, Tailwind, and web development.", "Web development is Hans' expertise: HTML, CSS, JS, Tailwind."],
+    "projects": ["Hans has multiple interactive web projects. You can explore them below.", "Check out Hans' portfolio for web and coding projects."],
+    "contact": ["You can reach Hans via email or WhatsApp.", "Contact Hans directly via email or WhatsApp for inquiries."],
+    "default": ["Sorry, I didn't understand. Could you rephrase?", "I’m not sure about that. Try asking differently!"]
+  };
+
+  // Display message in chat
+  function displayMessage(text, sender){
+    const msgDiv = document.createElement("div");
+    msgDiv.textContent = text;
+    msgDiv.className = `mb-2 p-2 rounded max-w-[75%] ${sender==='user'?'ml-auto bg-yellow-500 text-black':'bg-gray-700 text-white'}`;
+    chatMessages.appendChild(msgDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Typing animation
+  function showTyping(callback){
+    const typingDiv = document.createElement("div");
+    typingDiv.className = "mb-2 p-2 rounded max-w-[40%] bg-gray-600 text-white flex items-center";
+    typingDiv.id = "typingIndicator";
+    typingDiv.innerHTML = "AI is typing <span class='dots'>...</span>";
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Animate dots
+    let dots = 1;
+    const interval = setInterval(()=>{
+      typingDiv.querySelector(".dots").textContent = ".".repeat(dots);
+      dots = dots >= 3 ? 1 : dots + 1;
+    }, 500);
+
+    // After delay, remove typing and callback
+    setTimeout(()=>{
+      clearInterval(interval);
+      typingDiv.remove();
+      callback();
+    }, 1000 + Math.random()*1000);
+  }
+
+  // Send message
+  function sendMessage(msg){
+    if(!msg) return;
+    displayMessage(msg, "user");
+
+    showTyping(()=>{
+      const lowerMsg = msg.toLowerCase();
+      let responses = aiResponses[lowerMsg] || aiResponses["default"];
+      const response = responses[Math.floor(Math.random() * responses.length)];
+      displayMessage(response, "ai");
+    });
+  }
+
+  // Input enter key
+  chatInput.addEventListener("keypress", e=>{
+    if(e.key==="Enter" && chatInput.value.trim()!==""){
+      sendMessage(chatInput.value.trim());
+      chatInput.value="";
+    }
+  });
+
+  // Quick reply buttons
+  quickBtns.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      sendMessage(btn.dataset.msg);
+    });
+  });
+
+});
+</script>
+
+<!-- Floating Button untuk membuka game (di atas logo WhatsApp) -->
+<button id="openGameBtn" class="fixed bottom-24 left-4 bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-4 rounded-full z-50 shadow-lg">
+  🎮 Mini Game
+</button>
+
+<!-- Mini Game Modal -->
+<div id="gameContainer" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gray-900 text-white rounded-lg shadow-xl p-4 flex flex-col items-center justify-center z-50 hidden cursor-move">
+  <div id="gameHeader" class="flex justify-between w-full mb-2 cursor-move">
+    <h3 class="text-white font-bold">Mini Game Challenge</h3>
+    <button id="closeGame" class="text-gray-400 hover:text-white font-bold">✖</button>
+  </div>
+  <div id="scoreBoard" class="text-yellow-400 mb-2">Score: 0</div>
+  <div id="gameArea" class="relative w-full h-72 bg-gray-800 rounded overflow-hidden"></div>
+  <div class="flex gap-2 mt-2">
+    <button id="startGame" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded">Start Game</button>
+    <button id="minimizeGame" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded">Minimize</button>
+  </div>
+  <div id="timer" class="text-white mt-2">Time: 30s</div>
+</div>
+
+<script>
+const gameContainer = document.getElementById("gameContainer");
+const gameHeader = document.getElementById("gameHeader");
+const startBtn = document.getElementById("startGame");
+const scoreBoard = document.getElementById("scoreBoard");
+const gameArea = document.getElementById("gameArea");
+const timerDisplay = document.getElementById("timer");
+const closeGame = document.getElementById("closeGame");
+const minimizeGame = document.getElementById("minimizeGame");
+const openGameBtn = document.getElementById("openGameBtn");
+
+let score = 0;
+let gameInterval;
+let countdown;
+let gameTime = 30;
+
+// Open modal via floating button
+openGameBtn.addEventListener("click", () => {
+  gameContainer.classList.remove("hidden");
+});
+
+// Close modal
+closeGame.addEventListener("click", ()=> gameContainer.classList.add("hidden"));
+
+// Minimize modal (modal hilang, floating button tetap ada)
+minimizeGame.addEventListener("click", ()=> gameContainer.classList.add("hidden"));
+
+// Create particle
+function createParticle(){
+  const particle = document.createElement("div");
+  particle.className = "absolute w-6 h-6 bg-yellow-500 rounded-full cursor-pointer animate-bounce";
+  particle.style.top = Math.random() * (gameArea.clientHeight - 24) + "px";
+  particle.style.left = Math.random() * (gameArea.clientWidth - 24) + "px";
+  gameArea.appendChild(particle);
+
+  particle.addEventListener("click", () => {
+    score++;
+    scoreBoard.textContent = "Score: " + score;
+    particle.remove();
+  });
+
+  setTimeout(()=> particle.remove(), 2000);
+}
+
+// Start Game
+startBtn.addEventListener("click", () => {
+  score = 0;
+  gameTime = 30;
+  scoreBoard.textContent = "Score: 0";
+  timerDisplay.textContent = "Time: 30s";
+  gameArea.innerHTML = "";
+
+  gameInterval = setInterval(createParticle, 800);
+
+  countdown = setInterval(() => {
+    gameTime--;
+    timerDisplay.textContent = "Time: " + gameTime + "s";
+    if(gameTime <= 0){
+      clearInterval(countdown);
+      clearInterval(gameInterval);
+      alert("Game Over! Your Score: " + score);
+    }
+  }, 1000);
+});
+
+// --- Drag functionality ---
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+gameHeader.addEventListener("mousedown", (e)=>{
+  isDragging = true;
+  const rect = gameContainer.getBoundingClientRect();
+  offsetX = e.clientX - rect.left;
+  offsetY = e.clientY - rect.top;
+});
+
+document.addEventListener("mouseup", ()=>{ isDragging = false; });
+
+document.addEventListener("mousemove", (e)=>{
+  if(!isDragging) return;
+  gameContainer.style.left = `${e.clientX - offsetX}px`;
+  gameContainer.style.top = `${e.clientY - offsetY}px`;
+  gameContainer.style.transform = `translate(0, 0)`; // hapus transform agar drag akurat
+});
+</script>
+<!-- Konten Utama -->
+<div class="relative z-10 p-10 text-white">
+  <h1 class="text-4xl font-bold mb-2">Hans Portfolio</h1>
+  <p>Professional & Interactive Website</p>
+
+  <!-- Pilihan Style Partikel -->
+  <label class="mt-4 block">Choose Particle Style:</label>
+  <select id="particleStyle" class="mt-2 p-2 rounded text-black">
+    <option value="circle">Kunang-Kunang</option>
+    <option value="star">Bintang</option>
+    <option value="bubble">Bubble</option>
+     <option value="line">Network Line</option>
+    <option value="none">None</option>
+  </select>
+</div>
+<!-- tsParticles -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+<script>
+    
+  // Partikel
+  let particlesInstance;
+
+  const particleOptions = {
+    circle: { particles: { number: { value: 50 }, color: { value: "#FACC15" }, shape: { type: "circle" }, opacity: { value: 0.7 }, size: { value: 3 }, move: { enable: true, speed: 1 } } },
+    star: { particles: { number: { value: 40 }, color: { value: "#FACC15" }, shape: { type: "star" }, opacity: { value: 0.8 }, size: { value: 4 }, move: { enable: true, speed: 1 } } },
+    bubble: { particles: { number: { value: 30 }, color: { value: "#FACC15" }, shape: { type: "circle" }, opacity: { value: 0.4 }, size: { value: 10 }, move: { enable: true, speed: 0.5, direction: "top", outModes: { default: "out" } } } },
+    line: { particles: { number: { value: 50 }, color: { value: "#FACC15" }, shape: { type: "circle" }, opacity: { value: 0.5 }, size: { value: 3 }, move: { enable: true, speed: 1 }, links: { enable: true, distance: 150, color: "#FACC15", opacity: 0.4 } } }
+  };
+
+  function loadParticles(style) {
+    if(particlesInstance) {
+      particlesInstance.destroy();
+    }
+    tsParticles.load("particles-js", particleOptions[style]).then(instance => { particlesInstance = instance; });
+  }
+
+  loadParticles("circle");
+
+  document.getElementById("particleStyle").addEventListener("change", (e) => {
+    loadParticles(e.target.value);
+  });
+</script>
+
+<!-- SVG Wave -->
+<div class="w-full overflow-hidden" style="line-height:0;">
+    <svg viewBox="0 0 1440 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+            <linearGradient id="waveGradient" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#3b82f6"/>
+                <stop offset="0.5" stop-color="#a78bfa"/>
+                <stop offset="1" stop-color="#f472b6"/>
+            </linearGradient>
+        </defs>
+        <path fill="url(#waveGradient)" fill-opacity="1" d="M0,32L48,37.3C96,43,192,53,288,69.3C384,85,480,107,576,106.7C672,107,768,85,864,74.7C960,64,1056,64,1152,69.3C1248,75,1344,85,1392,90.7L1440,96L1440,120L0,120Z"></path>
+    </svg>
+</div>
+<!-- Tailwind CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">

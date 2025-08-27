@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Diskusi - Hans Sirhan Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .post-card { border-left: 4px solid #667eea; }
+        .category-active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="Project.html" class="text-2xl font-bold gradient-bg bg-clip-text text-transparent">Hans Sirhan</a>
+                    <span class="text-gray-500">|</span>
+                    <span class="text-gray-600 font-medium">Forum Diskusi</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <i class="fas fa-bell text-gray-600 text-xl cursor-pointer hover:text-blue-600 transition"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </div>
+                    <a href="Project.html" class="gradient-bg text-white px-6 py-2 rounded-full hover:opacity-90 transition font-medium">
+                        <i class="fas fa-arrow-left mr-2"></i>Kembali ke Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="gradient-bg py-20 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-bold mb-6 animate-fade-in">Forum Diskusi</h1>
+            <p class="text-xl mb-8 opacity-90 animate-fade-in">Bergabunglah dalam diskusi, bagikan pengalaman, dan dapatkan bantuan dari komunitas</p>
+            <div class="flex justify-center items-center space-x-8 text-sm">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-users text-2xl"></i>
+                    <div>
+                        <div class="font-bold text-lg">1,234</div>
+                        <div class="opacity-75">Anggota</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-comments text-2xl"></i>
+                    <div>
+                        <div class="font-bold text-lg">5,678</div>
+                        <div class="opacity-75">Diskusi</div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-clock text-2xl"></i>
+                    <div>
+                        <div class="font-bold text-lg">24/7</div>
+                        <div class="opacity-75">Aktif</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search & Categories -->
+    <section class="py-8 bg-white shadow-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
+                <div class="relative flex-1 max-w-md">
+                    <input type="text" id="searchInput" placeholder="Cari diskusi..." class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="category-btn category-active px-6 py-2 rounded-full font-medium transition" data-category="all">
+                        <i class="fas fa-globe mr-2"></i>Semua
+                    </button>
+                    <button class="category-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-6 py-2 rounded-full font-medium transition" data-category="general">
+                        <i class="fas fa-comments mr-2"></i>General
+                    </button>
+                    <button class="category-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-6 py-2 rounded-full font-medium transition" data-category="tech">
+                        <i class="fas fa-code mr-2"></i>Tech Support
+                    </button>
+                    <button class="category-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-6 py-2 rounded-full font-medium transition" data-category="feedback">
+                        <i class="fas fa-star mr-2"></i>Feedback
+                    </button>
+                    <button class="category-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-6 py-2 rounded-full font-medium transition" data-category="qa">
+                        <i class="fas fa-question-circle mr-2"></i>Q&A
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Forum Posts -->
+                <div class="lg:col-span-2">
+                    <!-- New Post Form -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-plus-circle text-blue-600 mr-2"></i>
+                            Buat Diskusi Baru
+                        </h3>
+                        <form id="newPostForm" class="space-y-4">
+                            <div class="flex space-x-4">
+                                <input type="text" id="postTitle" placeholder="Judul diskusi..." class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <select id="postCategory" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="general">General</option>
+                                    <option value="tech">Tech Support</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="qa">Q&A</option>
+                                </select>
+                            </div>
+                            <textarea id="postContent" rows="4" placeholder="Tulis pesan Anda..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-4">
+                                    <label class="flex items-center cursor-pointer">
+                                        <input type="file" id="postImage" accept="image/*" class="hidden">
+                                        <i class="fas fa-image text-gray-500 hover:text-blue-600 text-xl transition"></i>
+                                        <span class="ml-2 text-gray-600">Tambah Gambar</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="gradient-bg text-white px-8 py-3 rounded-lg hover:opacity-90 transition font-medium">
+                                    <i class="fas fa-paper-plane mr-2"></i>Posting
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Forum Posts List -->
+                    <div id="forumPosts" class="space-y-6">
+                        <!-- Sample Posts -->
+                        <div class="bg-white rounded-lg shadow-md p-6 post-card card-hover" data-category="general">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face" alt="User" class="w-12 h-12 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-bold text-gray-800">Ahmad Rizki</h4>
+                                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">General</span>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">2 jam yang lalu</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Pengalaman Freelancing di Era Digital</h3>
+                                    <p class="text-gray-600 mb-4">Bagaimana pengalaman teman-teman dalam dunia freelancing? Saya baru mulai dan ingin tahu tips-tips dari yang sudah berpengalaman...</p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-4">
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition">
+                                                <i class="fas fa-thumbs-up"></i>
+                                                <span>12</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition">
+                                                <i class="fas fa-reply"></i>
+                                                <span>5 Balasan</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-yellow-600 transition">
+                                                <i class="fas fa-share"></i>
+                                                <span>Bagikan</span>
+                                            </button>
+                                        </div>
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium transition">Baca Selengkapnya</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6 post-card card-hover" data-category="tech">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="User" class="w-12 h-12 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-bold text-gray-800">Budi Santoso</h4>
+                                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">Tech Support</span>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">4 jam yang lalu</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Masalah Deployment di Netlify</h3>
+                                    <p class="text-gray-600 mb-4">Ada yang pernah mengalami error saat deploy React app ke Netlify? Build berhasil tapi halaman tidak muncul...</p>
+                                    <div class="bg-gray-100 p-3 rounded-lg mb-4">
+                                        <code class="text-sm text-gray-800">Error: Failed to load resource: the server responded with a status of 404</code>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-4">
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition">
+                                                <i class="fas fa-thumbs-up"></i>
+                                                <span>8</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition">
+                                                <i class="fas fa-reply"></i>
+                                                <span>3 Balasan</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-yellow-600 transition">
+                                                <i class="fas fa-share"></i>
+                                                <span>Bagikan</span>
+                                            </button>
+                                        </div>
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium transition">Baca Selengkapnya</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6 post-card card-hover" data-category="feedback">
+                            <div class="flex items-start space-x-4">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&h=50&fit=crop&crop=face" alt="User" class="w-12 h-12 rounded-full">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center space-x-2">
+                                            <h4 class="font-bold text-gray-800">Sari Dewi</h4>
+                                            <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Feedback</span>
+                                        </div>
+                                        <span class="text-gray-500 text-sm">1 hari yang lalu</span>
+                                    </div>
+                                    <h3 class="text-lg font-semibold mb-2 text-gray-800">Portfolio Hans Sangat Menginspirasi!</h3>
+                                    <p class="text-gray-600 mb-4">Saya sangat terkesan dengan portfolio Hans. Desainnya clean, profesional, dan mudah dinavigasi. Terima kasih sudah berbagi ilmu!</p>
+                                    <div class="flex items-center mb-4">
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="ml-2 text-gray-600 text-sm">5.0/5.0</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-4">
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition">
+                                                <i class="fas fa-thumbs-up"></i>
+                                                <span>25</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition">
+                                                <i class="fas fa-reply"></i>
+                                                <span>8 Balasan</span>
+                                            </button>
+                                            <button class="flex items-center space-x-1 text-gray-500 hover:text-yellow-600 transition">
+                                                <i class="fas fa-share"></i>
+                                                <span>Bagikan</span>
+                                            </button>
+                                        </div>
+                                        <button class="text-blue-600 hover:text-blue-800 font-medium transition">Baca Selengkapnya</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="text-center mt-8">
+                        <button id="loadMoreBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-3 rounded-lg transition font-medium">
+                            <i class="fas fa-plus mr-2"></i>Muat Lebih Banyak
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- User Profile Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6 card-hover">
+                        <div class="text-center">
+                            <img src="Asset/WhatsApp Image 2025-08-21 at 09.46.03.jpeg" alt="Profile" class="w-20 h-20 rounded-full mx-auto mb-4">
+                            <h3 class="font-bold text-gray-800 mb-2">Selamat Datang!</h3>
+                            <p class="text-gray-600 text-sm mb-4">Bergabunglah dalam diskusi dan berbagi pengalaman</p>
+                            <button class="gradient-bg text-white px-6 py-2 rounded-full hover:opacity-90 transition font-medium w-full">
+                                <i class="fas fa-user-plus mr-2"></i>Daftar Sekarang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Popular Topics -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6 card-hover">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-fire text-orange-500 mr-2"></i>
+                            Topik Populer
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 text-sm">Tips Freelancing</h4>
+                                    <p class="text-gray-500 text-xs">25 diskusi</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 text-sm">Web Development</h4>
+                                    <p class="text-gray-500 text-xs">18 diskusi</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer">
+                                <div>
+                                    <h4 class="font-medium text-gray-800 text-sm">Portfolio Review</h4>
+                                    <p class="text-gray-500 text-xs">12 diskusi</p>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6 card-hover">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-clock text-blue-500 mr-2"></i>
+                            Aktivitas Terbaru
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=30&h=30&fit=crop&crop=face" alt="User" class="w-8 h-8 rounded-full">
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Budi</span> membalas diskusi <span class="font-medium">"Tips Deployment"</span></p>
+                                    <p class="text-xs text-gray-400">5 menit yang lalu</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=30&h=30&fit=crop&crop=face" alt="User" class="w-8 h-8 rounded-full">
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Sari</span> memberikan rating 5 bintang</p>
+                                    <p class="text-xs text-gray-400">10 menit yang lalu</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=30&h=30&fit=crop&crop=face" alt="User" class="w-8 h-8 rounded-full">
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Ahmad</span> membuat diskusi baru</p>
+                                    <p class="text-xs text-gray-400">2 jam yang lalu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forum Stats -->
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-green-500 mr-2"></i>
+                            Statistik Forum
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Total Diskusi</span>
+                                <span class="font-bold text-gray-800">5,678</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Anggota Aktif</span>
+                                <span class="font-bold text-gray-800">1,234</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Balasan Hari Ini</span>
+                                <span class="font-bold text-gray-800">89</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-gray-600">Online Sekarang</span>
+                                <span class="font-bold text-green-600">45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Forum Data Storage
+        let forumPosts = [];
+        let currentCategory = 'all';
+        let likedPosts = new Set();
+        let notifications = 3;
+
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const newPostForm = document.getElementById('newPostForm');
+        const forumPostsContainer = document.getElementById('forumPosts');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+        // Initialize Forum
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            loadSamplePosts();
+            updateStats();
+        });
+
+        // Event Listeners
+        function initializeEventListeners() {
+            // Search functionality
+            searchInput.addEventListener('input', debounce(handleSearch, 300));
+
+            // Category filtering
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', handleCategoryFilter);
+            });
+
+            // New post form
+            newPostForm.addEventListener('submit', handleNewPost);
+
+            // Load more posts
+            loadMoreBtn.addEventListener('click', loadMorePosts);
+
+            // Image upload preview
+            document.getElementById('postImage').addEventListener('change', handleImagePreview);
+
+            // Notification bell
+            document.querySelector('.fa-bell').addEventListener('click', showNotifications);
+        }
+
+        // Search Posts
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase();
+            filterPosts(query, currentCategory);
+        }
+
+        // Category Filter
+        function handleCategoryFilter(e) {
+            // Update active category button
+            categoryBtns.forEach(btn => {
+                btn.classList.remove('category-active');
+                btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+            });
+            
+            e.target.classList.add('category-active');
+            e.target.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+
+            currentCategory = e.target.dataset.category;
+            const query = searchInput.value.toLowerCase();
+            filterPosts(query, currentCategory);
+        }
+
+        // Filter Posts
+        function filterPosts(query = '', category = 'all') {
+            const posts = document.querySelectorAll('[data-category]');
+            
+            posts.forEach(post => {
+                const postCategory = post.dataset.category;
+                const postText = post.textContent.toLowerCase();
+                
+                const matchesCategory = category === 'all' || postCategory === category;
+                const matchesSearch = query === '' || postText.includes(query);
+                
+                if (matchesCategory && matchesSearch) {
+                    post.style.display = 'block';
+                    post.classList.add('animate-fade-in');
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+
+            // Show no results message if needed
+            const visiblePosts = document.querySelectorAll('[data-category][style*="block"], [data-category]:not([style*="none"])');
+            if (visiblePosts.length === 0) {
+                showNoResults();
+            } else {
+                hideNoResults();
+            }
+        }
+
+        // Handle New Post
+        function handleNewPost(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            const category = document.getElementById('postCategory').value;
+            const imageFile = document.getElementById('postImage').files[0];
+
+            if (!title.trim() || !content.trim()) {
+                showAlert('Judul dan konten tidak boleh kosong!', 'error');
+                return;
+            }
+
+            const newPost = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                category: category,
+                author: 'Anda',
+                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face',
+                timestamp: 'Baru saja',
+                likes: 0,
+                replies: 0,
+                image: null
+            };
+
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newPost.image = e.target.result;
+                    addPostToDOM(newPost);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                addPostToDOM(newPost);
+            }
+
+            // Reset form
+            newPostForm.reset();
+            showAlert('Diskusi berhasil dibuat!', 'success');
+            updateStats();
+        }
+
+        // Add Post to DOM
+        function addPostToDOM(post) {
+            const categoryColors = {
+                'general': 'bg-blue-100 text-blue-800',
+                'tech': 'bg-green-100 text-green-800',
+                'feedback': 'bg-yellow-100 text-yellow-800',
+                'qa': 'bg-purple-100 text-purple-800'
+            };
+
+            const categoryNames = {
+                'general': 'General',
+                'tech': 'Tech Support',
+                'feedback': 'Feedback',
+                'qa': 'Q&A'
+            };
+
+            const postHTML = `
+                <div class="bg-white rounded-lg shadow-md p-6 post-card card-hover animate-fade-in" data-category="${post.category}" data-post-id="${post.id}">
+                    <div class="flex items-start space-x-4">
+                        <img src="${post.avatar}" alt="User" class="w-12 h-12 rounded-full">
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="font-bold text-gray-800">${post.author}</h4>
+                                    <span class="${categoryColors[post.category]} px-2 py-1 rounded-full text-xs font-medium">${categoryNames[post.category]}</span>
+                                </div>
+                                <span class="text-gray-500 text-sm">${post.timestamp}</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2 text-gray-800">${post.title}</h3>
+                            <p class="text-gray-600 mb-4">${post.content}</p>
+                            ${post.image ? `<img src="${post.image}" alt="Post Image" class="w-full max-h-64 object-cover rounded-lg mb-4">` : ''}
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <button class="like-btn flex items-center space-x-1 text-gray-500 hover:text-blue-600 transition" onclick="toggleLike(${post.id})">
+                                        <i class="fas fa-thumbs-up"></i>
+                                        <span class="like-count">${post.likes}</span>
+                                    </button>
+                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-green-600 transition" onclick="showReplyModal(${post.id})">
+                                        <i class="fas fa-reply"></i>
+                                        <span>${post.replies} Balasan</span>
+                                    </button>
+                                    <button class="flex items-center space-x-1 text-gray-500 hover:text-yellow-600 transition" onclick="sharePost(${post.id})">
+                                        <i class="fas fa-share"></i>
+                                        <span>Bagikan</span>
+                                    </button>
+                                </div>
+                                <button class="text-blue-600 hover:text-blue-800 font-medium transition" onclick="showPostDetail(${post.id})">Baca Selengkapnya</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            forumPostsContainer.insertAdjacentHTML('afterbegin', postHTML);
+            forumPosts.unshift(post);
+        }
+
+        // Toggle Like
+        function toggleLike(postId) {
+            const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+            const likeBtn = postElement.querySelector('.like-btn');
+            const likeCount = postElement.querySelector('.like-count');
+            const icon = likeBtn.querySelector('i');
+            
+            if (likedPosts.has(postId)) {
+                likedPosts.delete(postId);
+                icon.classList.remove('text-blue-600');
+                icon.classList.add('text-gray-500');
+                likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                showAlert('Like dihapus', 'info');
+            } else {
+                likedPosts.add(postId);
+                icon.classList.remove('text-gray-500');
+                icon.classList.add('text-blue-600');
+                likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                showAlert('Post disukai!', 'success');
+            }
+        }
+
+        // Show Reply Modal
+        function showReplyModal(postId) {
+            const modal = createModal('Balas Diskusi', `
+                <form id="replyForm" class="space-y-4">
+                    <textarea id="replyContent" rows="4" placeholder="Tulis balasan Anda..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" onclick="closeModal()" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition">Batal</button>
+                        <button type="submit" class="px-6 py-2 gradient-bg text-white rounded-lg hover:opacity-90 transition">Kirim Balasan</button>
+                    </div>
+                </form>
+            `);
+
+            document.getElementById('replyForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const replyContent = document.getElementById('replyContent').value;
+                if (replyContent.trim()) {
+                    addReply(postId, replyContent);
+                    closeModal();
+                    showAlert('Balasan berhasil dikirim!', 'success');
+                }
+            });
+        }
+
+        // Add Reply
+        function addReply(postId, content) {
+            const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+            const replyCountElement = postElement.querySelector('.fa-reply').nextElementSibling;
+            const currentCount = parseInt(replyCountElement.textContent.split(' ')[0]);
+            replyCountElement.textContent = `${currentCount + 1} Balasan`;
+        }
+
+        // Share Post
+        function sharePost(postId) {
+            const post = forumPosts.find(p => p.id === postId);
+            if (post) {
+                const shareText = `Lihat diskusi menarik: "${post.title}" di Forum Hans Sirhan`;
+                if (navigator.share) {
+                    navigator.share({
+                        title: post.title,
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(shareText + ' - ' + window.location.href);
+                    showAlert('Link berhasil disalin ke clipboard!', 'success');
+                }
+            }
+        }
+
+        // Show Post Detail
+        function showPostDetail(postId) {
+            const post = forumPosts.find(p => p.id === postId) || getSamplePost(postId);
+            if (post) {
+                const modal = createModal(post.title, `
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="${post.avatar}" alt="User" class="w-10 h-10 rounded-full">
+                            <div>
+                                <h4 class="font-bold text-gray-800">${post.author}</h4>
+                                <p class="text-gray-500 text-sm">${post.timestamp}</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">${post.content}</p>
+                        ${post.image ? `<img src="${post.image}" alt="Post Image" class="w-full rounded-lg">` : ''}
+                        <div class="border-t pt-4 mt-6">
+                            <h5 class="font-bold mb-3">Balasan (${post.replies || 0})</h5>
+                            <div class="space-y-3 max-h-60 overflow-y-auto">
+                                <p class="text-gray-500 text-center">Belum ada balasan. Jadilah yang pertama!</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            }
+        }
+
+        // Load More Posts
+        function loadMorePosts() {
+            const morePosts = [
+                {
+                    id: Date.now() + 1,
+                    title: 'Tips Optimasi SEO untuk Portfolio',
+                    content: 'Bagaimana cara mengoptimalkan SEO untuk website portfolio? Ada yang punya pengalaman?',
+                    category: 'qa',
+                    author: 'Lisa Permata',
+                    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face',
+                    timestamp: '3 hari yang lalu',
+                    likes: 7,
+                    replies: 4
+                },
+                {
+                    id: Date.now() + 2,
+                    title: 'Pengalaman Kerja Remote',
+                    content: 'Sudah 2 tahun kerja remote, mau share pengalaman dan tips untuk yang baru mulai...',
+                    category: 'general',
+                    author: 'Eko Prasetyo',
+                    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face',
+                    timestamp: '5 hari yang lalu',
+                    likes: 15,
+                    replies: 8
+                }
+            ];
+
+            morePosts.forEach(post => addPostToDOM(post));
+            showAlert('Post baru dimuat!', 'success');
+        }
+
+        // Handle Image Preview
+        function handleImagePreview(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    showAlert('Gambar siap untuk diupload!', 'info');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Show Notifications
+        function showNotifications() {
+            const modal = createModal('Notifikasi', `
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3 p-3 bg-blue-50 rounded-lg">
+                        <i class="fas fa-reply text-blue-600 mt-1"></i>
+                        <div>
+                            <p class="font-medium">Balasan baru</p>
+                            <p class="text-sm text-gray-600">Ahmad membalas diskusi "Tips Freelancing"</p>
+                            <p class="text-xs text-gray-400">2 jam yang lalu</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 bg-green-50 rounded-lg">
+                        <i class="fas fa-thumbs-up text-green-600 mt-1"></i>
+                        <div>
+                            <p class="font-medium">Post disukai</p>
+                            <p class="text-sm text-gray-600">Sari menyukai diskusi Anda</p>
+                            <p class="text-xs text-gray-400">4 jam yang lalu</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 p-3 bg-yellow-50 rounded-lg">
+                        <i class="fas fa-star text-yellow-600 mt-1"></i>
+                        <div>
+                            <p class="font-medium">Rating baru</p>
+                            <p class="text-sm text-gray-600">Anda mendapat rating 5 bintang</p>
+                            <p class="text-xs text-gray-400">1 hari yang lalu</p>
+                        </div>
+                    </div>
+                </div>
+            `);
+            
+            // Reset notification count
+            document.querySelector('.fa-bell + span').textContent = '0';
+        }
+
+        // Utility Functions
+        function createModal(title, content) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">${title}</h3>
+                        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div>${content}</div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            return modal;
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.fixed.inset-0');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function showAlert(message, type = 'info') {
+            const colors = {
+                'success': 'bg-green-100 text-green-800 border-green-200',
+                'error': 'bg-red-100 text-red-800 border-red-200',
+                'info': 'bg-blue-100 text-blue-800 border-blue-200'
+            };
+
+            const alert = document.createElement('div');
+            alert.className = `fixed top-20 right-4 ${colors[type]} px-6 py-3 rounded-lg border shadow-lg z-50 animate-fade-in`;
+            alert.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        function showNoResults() {
+            if (!document.getElementById('noResults')) {
+                const noResults = document.createElement('div');
+                noResults.id = 'noResults';
+                noResults.className = 'text-center py-12';
+                noResults.innerHTML = `
+                    <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-600 mb-2">Tidak ada hasil ditemukan</h3>
+                    <p class="text-gray-500">Coba gunakan kata kunci yang berbeda atau ubah kategori</p>
+                `;
+                forumPostsContainer.appendChild(noResults);
+            }
+        }
+
+        function hideNoResults() {
+            const noResults = document.getElementById('noResults');
+            if (noResults) {
+                noResults.remove();
+            }
+        }
+
+        function updateStats() {
+            // Update forum statistics
+            const totalPosts = document.querySelectorAll('[data-category]').length;
+            document.querySelector('.fa-chart-bar').parentElement.nextElementSibling.children[0].children[1].textContent = totalPosts;
+        }
+
+        function loadSamplePosts() {
+            // Add interaction to existing posts
+            const existingPosts = document.querySelectorAll('[data-category]');
+            existingPosts.forEach((post, index) => {
+                const postId = Date.now() + index + 1000;
+                post.setAttribute('data-post-id', postId);
+                
+                // Add click handlers to existing buttons
+                const likeBtn = post.querySelector('.fa-thumbs-up').parentElement;
+                const replyBtn = post.querySelector('.fa-reply').parentElement;
+                const shareBtn = post.querySelector('.fa-share').parentElement;
+                const readMoreBtn = post.querySelector('button:last-child');
+                
+                likeBtn.setAttribute('onclick', `toggleLike(${postId})`);
+                replyBtn.setAttribute('onclick', `showReplyModal(${postId})`);
+                shareBtn.setAttribute('onclick', `sharePost(${postId})`);
+                readMoreBtn.setAttribute('onclick', `showPostDetail(${postId})`);
+            });
+        }
+
+        function getSamplePost(postId) {
+            return {
+                id: postId,
+                title: 'Sample Post',
+                content: 'This is a sample post content for demonstration purposes.',
+                author: 'Sample User',
+                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face',
+                timestamp: 'Sample time',
+                replies: 0
+            };
+        }
+
+        // Debounce function for search
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Make functions global for onclick handlers
+        window.toggleLike = toggleLike;
+        window.showReplyModal = showReplyModal;
+        window.sharePost = sharePost;
+        window.showPostDetail = showPostDetail;
+        window.closeModal = closeModal;
+    </script>
+</body>
+</html>

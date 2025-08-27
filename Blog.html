@@ -1,0 +1,3485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog & Articles | PortfolioCV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        .fade-out {
+            animation: fadeOut 0.6s forwards;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(.77,0,.18,1), transform 0.8s cubic-bezier(.77,0,.18,1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .category-tag {
+            transition: all 0.3s ease;
+        }
+        .category-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .pagination-btn {
+            transition: all 0.3s ease;
+        }
+        .pagination-btn:hover {
+            transform: scale(1.05);
+        }
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center fixed w-full top-0 z-50">
+        <a href="Project.html" class="text-xl font-bold text-blue-600">PortfolioCV</a>
+        <div class="flex space-x-6">
+            <a href="Project.html" id="homeLink" class="hover:text-blue-600 transition">Home</a>
+            <a href="Forum.html" class="hover:text-blue-600 transition">Forum</a>
+            <a href="Blog.html" class="text-blue-600 font-bold transition">Blog</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20 mt-16 reveal">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Blog & <span class="text-yellow-300">Articles</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                Berbagi pengalaman, tips, dan insight tentang teknologi dan development
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="Cari artikel..." 
+                           class="search-input px-6 py-3 pl-12 rounded-full text-gray-800 w-80 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                </div>
+                <button id="searchBtn" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 px-8 py-3 rounded-full font-semibold transition">
+                    <i class="fas fa-search mr-2"></i>Search
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-12 bg-white reveal">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="category-tag bg-blue-600 text-white px-6 py-3 rounded-full font-semibold" data-category="all">
+                    <i class="fas fa-th-large mr-2"></i>Semua Artikel
+                </button>
+                <button class="category-tag bg-gray-200 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full font-semibold transition" data-category="programming">
+                    <i class="fas fa-code mr-2"></i>Programming
+                </button>
+                <button class="category-tag bg-gray-200 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full font-semibold transition" data-category="freelance">
+                    <i class="fas fa-briefcase mr-2"></i>Freelance
+                </button>
+                <button class="category-tag bg-gray-200 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full font-semibold transition" data-category="technology">
+                    <i class="fas fa-laptop-code mr-2"></i>Technology
+                </button>
+                <button class="category-tag bg-gray-200 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full font-semibold transition" data-category="tutorial">
+                    <i class="fas fa-graduation-cap mr-2"></i>Tutorial
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section id="blog" class="py-12 bg-gray-50 reveal">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Main Articles -->
+                <div class="lg:col-span-3">
+                    <div id="articlesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Featured Article -->
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden md:col-span-2" data-category="programming" data-id="1">
+                            <div class="md:flex">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop" alt="Programming Tips" class="w-full md:w-1/2 h-64 md:h-auto object-cover">
+                                <div class="p-6 md:w-1/2">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                        <span class="text-gray-500 text-sm ml-3">
+                                            <i class="fas fa-calendar mr-1"></i>15 Jan 2025
+                                        </span>
+                                    </div>
+                                    <h3 class="text-2xl font-bold mb-3">Tips Sukses Belajar Programming dari Nol</h3>
+                                    <p class="text-gray-600 mb-4">Panduan lengkap untuk pemula yang ingin memulai karir di bidang programming. Dari memilih bahasa pemrograman hingga membangun portfolio.</p>
+                                    <div class="flex items-center justify-between">
+                                        <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="1">
+                                            <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                        </button>
+                                        <div class="flex items-center text-gray-500 text-sm">
+                                            <i class="fas fa-eye mr-1"></i>1,234 views
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regular Articles -->
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="freelance" data-id="2">
+                            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=300&fit=crop" alt="Freelance" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Freelance</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>12 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Pengalaman 3 Tahun Sebagai Freelance Web Developer</h3>
+                                <p class="text-gray-600 mb-4">Cerita perjalanan, tantangan, dan tips sukses menjadi freelancer di bidang web development.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="2">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>892 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="3">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=300&fit=crop" alt="Technology Trends" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>10 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Tren Teknologi 2025 yang Wajib Dipelajari Developer</h3>
+                                <p class="text-gray-600 mb-4">Teknologi terbaru yang akan mendominasi industri IT di tahun 2025 dan cara mempelajarinya.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="3">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,567 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="tutorial" data-id="4">
+                            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop" alt="React Tutorial" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Tutorial</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>8 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Membangun Aplikasi React dari Nol hingga Deploy</h3>
+                                <p class="text-gray-600 mb-4">Tutorial step-by-step membuat aplikasi React modern dengan hooks, routing, dan deployment.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="4">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,103 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="5">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop" alt="Code Quality" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>5 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Best Practices untuk Clean Code dan Code Review</h3>
+                                <p class="text-gray-600 mb-4">Panduan menulis kode yang bersih, mudah dibaca, dan maintainable untuk tim development.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="5">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>756 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="freelance" data-id="6">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=300&fit=crop" alt="Client Management" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Freelance</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>3 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Cara Mengelola Klien dan Project Freelance</h3>
+                                <p class="text-gray-600 mb-4">Tips komunikasi efektif dengan klien, manajemen waktu, dan menghindari scope creep.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="6">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>643 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="7">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop" alt="AI Development" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>1 Jan 2025
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Memahami ChatGPT dan Large Language Models</h3>
+                                <p class="text-gray-600 mb-4">Panduan lengkap tentang cara kerja AI generative dan implementasinya dalam development.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="7">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,890 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="tutorial" data-id="8">
+                            <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=300&fit=crop" alt="Git Tutorial" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Tutorial</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>28 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Menguasai Git dan GitHub untuk Developer</h3>
+                                <p class="text-gray-600 mb-4">Tutorial lengkap version control, branching strategy, dan collaboration dengan Git.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="8">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,456 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="9">
+                            <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=600&h=300&fit=crop" alt="Docker" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>25 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Docker untuk Developer: Containerization Made Easy</h3>
+                                <p class="text-gray-600 mb-4">Panduan praktis menggunakan Docker untuk development dan deployment aplikasi.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="9">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>987 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="10">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop" alt="Cloud Computing" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>22 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">AWS vs Azure vs Google Cloud: Perbandingan 2025</h3>
+                                <p class="text-gray-600 mb-4">Analisis mendalam ketiga cloud provider terbesar dan mana yang cocok untuk project Anda.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="10">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,234 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="freelance" data-id="11">
+                            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop" alt="Remote Work" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Freelance</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>20 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Remote Work: Produktivitas dan Work-Life Balance</h3>
+                                <p class="text-gray-600 mb-4">Strategi efektif bekerja remote, tools yang dibutuhkan, dan tips menjaga produktivitas.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="11">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,123 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="tutorial" data-id="12">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop" alt="API Development" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Tutorial</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>18 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Membangun RESTful API dengan Node.js dan Express</h3>
+                                <p class="text-gray-600 mb-4">Tutorial step-by-step membuat API yang scalable dengan authentication dan database.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="12">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,678 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="13">
+                            <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&h=300&fit=crop" alt="Database" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>15 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">SQL vs NoSQL: Kapan Menggunakan Database Mana?</h3>
+                                <p class="text-gray-600 mb-4">Perbandingan mendalam antara relational dan non-relational database dengan use cases.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="13">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,345 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 2 Articles (Hidden by default) -->
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="14" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop" alt="Cybersecurity" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>12 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Cybersecurity untuk Developer: Melindungi Aplikasi dari Serangan</h3>
+                                <p class="text-gray-600 mb-4">Panduan lengkap keamanan aplikasi, OWASP Top 10, dan best practices untuk secure coding.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="14">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,156 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="15" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=300&fit=crop" alt="Blockchain" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>10 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Blockchain dan Cryptocurrency: Teknologi di Balik Revolusi Digital</h3>
+                                <p class="text-gray-600 mb-4">Memahami teknologi blockchain, smart contracts, dan aplikasi beyond cryptocurrency.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="15">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,892 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="16" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=300&fit=crop" alt="Machine Learning" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>8 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Machine Learning untuk Pemula: Dari Teori ke Implementasi</h3>
+                                <p class="text-gray-600 mb-4">Pengenalan ML, supervised/unsupervised learning, dan implementasi dengan Python.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="16">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,445 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="tutorial" data-id="17" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=300&fit=crop" alt="PWA" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">Tutorial</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>6 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Progressive Web Apps (PWA): Masa Depan Aplikasi Web</h3>
+                                <p class="text-gray-600 mb-4">Tutorial lengkap PWA, service workers, web app manifest, dan offline functionality.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="17">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,678 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="18" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop" alt="Microservices" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>4 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Microservices Architecture: Membangun Aplikasi yang Scalable</h3>
+                                <p class="text-gray-600 mb-4">Dari monolith ke microservices, communication patterns, dan best practices.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="18">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,934 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="19" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=300&fit=crop" alt="DevOps" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>2 Des 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">DevOps Culture: Menggabungkan Development dan Operations</h3>
+                                <p class="text-gray-600 mb-4">Transformasi digital dengan DevOps, CI/CD pipeline, dan Infrastructure as Code.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="19">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,567 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="20" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=300&fit=crop" alt="Green Coding" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>30 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Sustainable Software Development: Green Coding Practices</h3>
+                                <p class="text-gray-600 mb-4">Coding untuk planet yang lebih hijau, efficient algorithms, dan sustainable practices.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="20">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,234 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="freelance" data-id="21" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop" alt="Mental Health" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Freelance</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>28 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Mental Health untuk Developer: Mengatasi Burnout dan Stress</h3>
+                                <p class="text-gray-600 mb-4">Kesehatan mental di dunia tech, mengenali burnout, dan strategi work-life balance.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="21">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,789 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 3 Articles (22-25) - Initially Hidden -->
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="22" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=300&fit=crop" alt="Web3 dan DApps" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>26 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Web3 dan Decentralized Applications (DApps): Era Internet Baru</h3>
+                                <p class="text-gray-600 mb-4">Revolusi internet menuju desentralisasi, memberikan kontrol data kembali kepada pengguna dan menciptakan ekonomi digital yang lebih fair.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="22">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,987 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="23" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=300&fit=crop" alt="Quantum Computing" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>24 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Quantum Computing: Masa Depan Komputasi yang Revolusioner</h3>
+                                <p class="text-gray-600 mb-4">Quantum computing memanfaatkan prinsip mekanika kuantum untuk memproses informasi dengan cara yang tidak mungkin dilakukan komputer klasik.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="23">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,456 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="24" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop" alt="API Design" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>22 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">API Design Best Practices: Membangun Interface yang Robust</h3>
+                                <p class="text-gray-600 mb-4">API yang baik adalah fondasi dari aplikasi modern. Design yang thoughtful dapat membuat perbedaan antara API yang loved dan abandoned.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="24">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,134 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="25" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop" alt="Testing Strategies" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>20 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Testing Strategies: Unit, Integration, dan E2E Testing</h3>
+                                <p class="text-gray-600 mb-4">Testing adalah investasi dalam kualitas software. Strategy yang baik dapat mencegah bugs, meningkatkan confidence, dan mempercepat development cycle.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="25">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,876 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="26" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=300&fit=crop" alt="Docker Containerization" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>18 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Docker dan Containerization: Panduan Lengkap untuk Developer</h3>
+                                <p class="text-gray-600 mb-4">Docker telah mengubah cara kita deploy dan manage aplikasi. Containerization memungkinkan aplikasi berjalan konsisten di berbagai environment.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="26">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,456 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="27" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop" alt="GraphQL vs REST" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>16 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">GraphQL vs REST API: Memilih Architecture yang Tepat</h3>
+                                <p class="text-gray-600 mb-4">GraphQL dan REST adalah dua pendekatan berbeda untuk membangun APIs. Masing-masing memiliki kelebihan dan use cases yang tepat.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="27">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,789 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="28" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop" alt="Serverless Computing" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>14 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Serverless Computing: AWS Lambda dan Cloud Functions</h3>
+                                <p class="text-gray-600 mb-4">Serverless computing memungkinkan developers fokus pada code tanpa memikirkan server management. Pay-per-execution model yang cost-effective.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="28">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>1,654 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="technology" data-id="29" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=300&fit=crop" alt="Progressive Web Apps" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">Technology</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>12 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Progressive Web Apps (PWA): Native Experience di Web</h3>
+                                <p class="text-gray-600 mb-4">Progressive Web Apps menggabungkan yang terbaik dari web dan mobile apps, memberikan native-like experience dengan teknologi web.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="29">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,123 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blog-card bg-white rounded-lg shadow-md overflow-hidden" data-category="programming" data-id="30" style="display: none;">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop" alt="Cybersecurity" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex items-center mb-3">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">Programming</span>
+                                    <span class="text-gray-500 text-sm ml-3">
+                                        <i class="fas fa-calendar mr-1"></i>10 Nov 2024
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3">Cybersecurity untuk Developer: Secure Coding Practices</h3>
+                                <p class="text-gray-600 mb-4">Cybersecurity bukan hanya tanggung jawab security team. Developer perlu memahami secure coding practices untuk membangun aplikasi yang aman.</p>
+                                <div class="flex items-center justify-between">
+                                    <button class="read-more-btn text-blue-600 font-semibold hover:underline" data-id="30">
+                                        <i class="fas fa-arrow-right mr-2"></i>Baca Selengkapnya
+                                    </button>
+                                    <div class="flex items-center text-gray-500 text-sm">
+                                        <i class="fas fa-eye mr-1"></i>2,987 views
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <div class="flex space-x-2">
+                            <button class="pagination-btn bg-white border border-gray-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="pagination-btn bg-blue-600 text-white px-4 py-2 rounded-lg">1</button>
+                            <button class="pagination-btn bg-white border border-gray-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">2</button>
+                            <button class="pagination-btn bg-white border border-gray-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">3</button>
+                            <button class="pagination-btn bg-white border border-gray-300 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="sidebar-sticky space-y-8">
+                        <!-- Popular Posts -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-bold mb-6 flex items-center">
+                                <i class="fas fa-fire text-orange-500 mr-2"></i>Artikel Populer
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=80&h=60&fit=crop" alt="Popular" class="w-16 h-12 rounded object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Membangun Aplikasi React dari Nol</h4>
+                                        <p class="text-xs text-gray-500 mt-1">2,103 views</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=80&h=60&fit=crop" alt="Popular" class="w-16 h-12 rounded object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Tren Teknologi 2025</h4>
+                                        <p class="text-xs text-gray-500 mt-1">1,567 views</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=80&h=60&fit=crop" alt="Popular" class="w-16 h-12 rounded object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Tips Sukses Belajar Programming</h4>
+                                        <p class="text-xs text-gray-500 mt-1">1,234 views</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Posts -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-bold mb-6 flex items-center">
+                                <i class="fas fa-clock text-blue-500 mr-2"></i>Artikel Terbaru
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="border-l-4 border-blue-500 pl-4">
+                                    <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Tips Sukses Belajar Programming dari Nol</h4>
+                                    <p class="text-xs text-gray-500 mt-1">15 Jan 2025</p>
+                                </div>
+                                <div class="border-l-4 border-green-500 pl-4">
+                                    <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Pengalaman 3 Tahun Sebagai Freelance</h4>
+                                    <p class="text-xs text-gray-500 mt-1">12 Jan 2025</p>
+                                </div>
+                                <div class="border-l-4 border-purple-500 pl-4">
+                                    <h4 class="font-semibold text-sm hover:text-blue-600 cursor-pointer">Tren Teknologi 2025</h4>
+                                    <p class="text-xs text-gray-500 mt-1">10 Jan 2025</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg shadow-md p-6 text-white">
+                            <h3 class="text-xl font-bold mb-4 flex items-center">
+                                <i class="fas fa-envelope mr-2"></i>Newsletter
+                            </h3>
+                            <p class="text-blue-100 mb-4 text-sm">Dapatkan artikel terbaru langsung di email Anda!</p>
+                            <div class="space-y-3">
+                                <input type="email" placeholder="Email Anda" class="w-full px-4 py-2 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+                                <button class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 py-2 rounded-lg font-semibold transition">
+                                    <i class="fas fa-paper-plane mr-2"></i>Subscribe
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h3 class="text-xl font-bold mb-6 flex items-center">
+                                <i class="fas fa-tags text-green-500 mr-2"></i>Tags
+                            </h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">JavaScript</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">React</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">Node.js</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">CSS</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">HTML</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">PHP</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">MySQL</span>
+                                <span class="bg-gray-100 hover:bg-blue-600 hover:text-white px-3 py-1 rounded-full text-sm cursor-pointer transition">Python</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Modal -->
+    <div id="articleModal" class="modal fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-4xl">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h2 id="modalTitle" class="text-2xl font-bold text-gray-800"></h2>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div id="modalMeta" class="flex items-center mb-6 text-sm text-gray-500"></div>
+                <img id="modalImage" src="" alt="" class="w-full h-64 object-cover rounded-lg mb-6">
+                <div id="modalContent" class="prose max-w-none"></div>
+                
+                <!-- Social Share -->
+                <div class="flex items-center justify-between mt-8 pt-6 border-t">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-600 font-semibold">Bagikan:</span>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fab fa-facebook-f mr-2"></i>Facebook
+                        </button>
+                        <button class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fab fa-twitter mr-2"></i>Twitter
+                        </button>
+                        <button class="bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg transition">
+                            <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                        </button>
+                    </div>
+                    <div class="flex items-center text-gray-500">
+                        <i class="fas fa-eye mr-2"></i>
+                        <span id="modalViews"></span>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="mt-8 pt-6 border-t">
+                    <h3 class="text-xl font-bold mb-6">Komentar</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                        <textarea placeholder="Tulis komentar Anda..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" rows="3"></textarea>
+                        <div class="flex justify-between items-center mt-3">
+                            <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                <span><i class="fas fa-user mr-1"></i>Nama Anda</span>
+                                <span><i class="fas fa-envelope mr-1"></i>Email (opsional)</span>
+                            </div>
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition">
+                                <i class="fas fa-paper-plane mr-2"></i>Kirim
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Sample Comments -->
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                    A
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <span class="font-semibold text-gray-800">Ahmad Rizki</span>
+                                        <span class="text-gray-500 text-sm">2 hari yang lalu</span>
+                                    </div>
+                                    <p class="text-gray-700">Artikel yang sangat membantu! Terima kasih atas tips-tipsnya.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                    S
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <span class="font-semibold text-gray-800">Sari Dewi</span>
+                                        <span class="text-gray-500 text-sm">1 minggu yang lalu</span>
+                                    </div>
+                                    <p class="text-gray-700">Sangat informatif dan mudah dipahami. Ditunggu artikel selanjutnya!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400"> 2025 PortfolioCV. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Blog JavaScript Functionality -->
+    <script>
+    // Article data
+    const articles = {
+        1: {
+            title: "Tips Sukses Belajar Programming dari Nol",
+            category: "Programming",
+            date: "15 Jan 2025",
+            views: "1,234 views",
+            image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop",
+            content: `
+                <h3>Memulai Perjalanan Programming</h3>
+                <p>Belajar programming bisa menjadi tantangan besar, terutama bagi pemula. Namun dengan pendekatan yang tepat, siapa pun bisa menguasai skill ini.</p>
+                
+                <h4>1. Pilih Bahasa Pemrograman yang Tepat</h4>
+                <p>Untuk pemula, saya merekomendasikan Python atau JavaScript karena sintaksnya yang mudah dipahami dan komunitas yang besar.</p>
+                
+                <h4>2. Praktik Konsisten</h4>
+                <p>Kunci sukses dalam programming adalah konsistensi. Luangkan minimal 1-2 jam setiap hari untuk coding.</p>
+                
+                <h4>3. Bangun Project Nyata</h4>
+                <p>Jangan hanya belajar teori. Mulai bangun project sederhana seperti calculator, to-do list, atau website portfolio.</p>
+                
+                <h4>4. Bergabung dengan Komunitas</h4>
+                <p>Komunitas programmer sangat membantu dalam proses belajar. Join grup Facebook, Discord, atau forum seperti Stack Overflow.</p>
+                
+                <h4>5. Jangan Takut Error</h4>
+                <p>Error adalah bagian dari proses belajar. Setiap error adalah kesempatan untuk belajar sesuatu yang baru.</p>
+            `
+        },
+        2: {
+            title: "Pengalaman 3 Tahun Sebagai Freelance Web Developer",
+            category: "Freelance",
+            date: "12 Jan 2025",
+            views: "892 views",
+            image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=300&fit=crop",
+            content: `
+                <h3>Perjalanan Menjadi Freelancer</h3>
+                <p>Tiga tahun yang lalu, saya memutuskan untuk terjun ke dunia freelance web development. Berikut adalah pengalaman dan pembelajaran yang saya dapatkan.</p>
+                
+                <h4>Tahun Pertama: Fase Pembelajaran</h4>
+                <p>Tahun pertama adalah yang paling menantang. Saya harus belajar tidak hanya tentang coding, tetapi juga tentang bisnis, komunikasi dengan klien, dan manajemen waktu.</p>
+                
+                <h4>Tantangan yang Dihadapi</h4>
+                <ul>
+                    <li>Mencari klien pertama</li>
+                    <li>Menentukan harga yang tepat</li>
+                    <li>Mengelola ekspektasi klien</li>
+                    <li>Mengatur work-life balance</li>
+                </ul>
+                
+                <h4>Tips untuk Freelancer Pemula</h4>
+                <p>1. <strong>Bangun portfolio yang kuat</strong> - Portfolio adalah senjata utama freelancer</p>
+                <p>2. <strong>Mulai dengan harga kompetitif</strong> - Fokus pada review dan testimonial dulu</p>
+                <p>3. <strong>Komunikasi adalah kunci</strong> - Update klien secara berkala tentang progress project</p>
+                
+                <h4>Platform yang Saya Gunakan</h4>
+                <p>Saya aktif di Upwork, Fiverr, dan juga mendapat klien melalui referral dan media sosial.</p>
+            `
+        },
+        3: {
+            title: "Tren Teknologi 2025 yang Wajib Dipelajari Developer",
+            category: "Technology",
+            date: "10 Jan 2025",
+            views: "1,567 views",
+            image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=300&fit=crop",
+            content: `
+                <h3>Teknologi yang Akan Mendominasi 2025</h3>
+                <p>Industri teknologi terus berkembang pesat. Berikut adalah teknologi yang diprediksi akan sangat penting di tahun 2025.</p>
+                
+                <h4>1. Artificial Intelligence & Machine Learning</h4>
+                <p>AI bukan lagi masa depan, tapi sudah menjadi present. Tools seperti ChatGPT, GitHub Copilot, dan berbagai AI framework akan semakin terintegrasi dalam workflow developer.</p>
+                
+                <h4>2. Edge Computing</h4>
+                <p>Dengan semakin banyaknya IoT devices, edge computing menjadi solusi untuk mengurangi latency dan meningkatkan performance aplikasi.</p>
+                
+                <h4>3. WebAssembly (WASM)</h4>
+                <p>WebAssembly memungkinkan aplikasi web berjalan dengan performance mendekati native apps. Ini akan mengubah cara kita membangun web applications.</p>
+                
+                <h4>4. Quantum Computing</h4>
+                <p>Meskipun masih dalam tahap early adoption, quantum computing akan mulai mempengaruhi cara kita approach complex problems.</p>
+                
+                <h4>5. Sustainable Technology</h4>
+                <p>Green coding dan sustainable software development akan menjadi fokus utama, dengan emphasis pada energy-efficient algorithms.</p>
+                
+                <h4>Cara Mempersiapkan Diri</h4>
+                <p>1. Mulai belajar AI/ML fundamentals</p>
+                <p>2. Eksperimen dengan edge computing platforms</p>
+                <p>3. Pelajari WebAssembly basics</p>
+                <p>4. Stay updated dengan industry trends</p>
+            `
+        },
+        4: {
+            title: "Membangun Aplikasi React dari Nol hingga Deploy",
+            category: "Tutorial",
+            date: "8 Jan 2025",
+            views: "2,103 views",
+            image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=300&fit=crop",
+            content: `
+                <h3>Tutorial Lengkap React Development</h3>
+                <p>Dalam tutorial ini, kita akan membangun aplikasi React modern dari awal hingga deployment.</p>
+                
+                <h4>Setup Development Environment</h4>
+                <pre><code>npx create-react-app my-app
+cd my-app
+npm start</code></pre>
+                
+                <h4>Struktur Project</h4>
+                <p>Organisasi file yang baik adalah kunci maintainable code:</p>
+                <ul>
+                    <li>/src/components - Reusable components</li>
+                    <li>/src/pages - Page components</li>
+                    <li>/src/hooks - Custom hooks</li>
+                    <li>/src/utils - Utility functions</li>
+                    <li>/src/styles - CSS/SCSS files</li>
+                </ul>
+                
+                <h4>State Management dengan Hooks</h4>
+                <pre><code>import { useState, useEffect } from 'react';
+
+function App() {
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
+  
+  return (
+    // Your JSX here
+  );
+}</code></pre>
+                
+                <h4>Routing dengan React Router</h4>
+                <p>Install React Router: <code>npm install react-router-dom</code></p>
+                
+                <h4>Deployment ke Netlify</h4>
+                <p>1. Build aplikasi: <code>npm run build</code></p>
+                <p>2. Upload folder build ke Netlify</p>
+                <p>3. Configure redirects untuk SPA</p>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li>Gunakan functional components dan hooks</li>
+                    <li>Implement proper error boundaries</li>
+                    <li>Optimize dengan React.memo dan useMemo</li>
+                    <li>Write tests dengan Jest dan React Testing Library</li>
+                </ul>
+            `
+        },
+        5: {
+            title: "Best Practices untuk Clean Code dan Code Review",
+            category: "Programming",
+            date: "5 Jan 2025",
+            views: "756 views",
+            image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop",
+            content: `
+                <h3>Menulis Kode yang Bersih dan Maintainable</h3>
+                <p>Clean code bukan hanya tentang functionality, tapi juga tentang readability dan maintainability.</p>
+                
+                <h4>Prinsip Clean Code</h4>
+                <h5>1. Meaningful Names</h5>
+                <pre><code>// Bad
+const d = new Date();
+const u = users.filter(x => x.age > 18);
+
+// Good
+const currentDate = new Date();
+const adultUsers = users.filter(user => user.age > 18);</code></pre>
+                
+                <h5>2. Functions Should Do One Thing</h5>
+                <pre><code>// Bad
+function processUserData(users) {
+  // validate data
+  // transform data
+  // save to database
+  // send email
+}
+
+// Good
+function validateUsers(users) { ... }
+function transformUsers(users) { ... }
+function saveUsers(users) { ... }
+function sendWelcomeEmails(users) { ... }</code></pre>
+                
+                <h4>Code Review Best Practices</h4>
+                <h5>Untuk Reviewer:</h5>
+                <ul>
+                    <li>Focus pada logic, bukan style preferences</li>
+                    <li>Berikan feedback yang konstruktif</li>
+                    <li>Apresiasi good practices</li>
+                    <li>Suggest improvements, jangan hanya kritik</li>
+                </ul>
+                
+                <h5>Untuk Author:</h5>
+                <ul>
+                    <li>Write descriptive commit messages</li>
+                    <li>Keep PRs small dan focused</li>
+                    <li>Add comments untuk complex logic</li>
+                    <li>Test code sebelum submit</li>
+                </ul>
+                
+                <h4>Tools untuk Code Quality</h4>
+                <ul>
+                    <li><strong>ESLint</strong> - JavaScript linting</li>
+                    <li><strong>Prettier</strong> - Code formatting</li>
+                    <li><strong>SonarQube</strong> - Code quality analysis</li>
+                    <li><strong>Husky</strong> - Git hooks untuk pre-commit checks</li>
+                </ul>
+            `
+        },
+        6: {
+            title: "Cara Mengelola Klien dan Project Freelance",
+            category: "Freelance",
+            date: "3 Jan 2025",
+            views: "643 views",
+            image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=300&fit=crop",
+            content: `
+                <h3>Manajemen Klien yang Efektif</h3>
+                <p>Mengelola klien dengan baik adalah kunci sukses freelancer. Berikut adalah strategi yang saya gunakan.</p>
+                
+                <h4>1. Komunikasi yang Jelas</h4>
+                <h5>Set Expectations dari Awal</h5>
+                <ul>
+                    <li>Timeline project yang realistis</li>
+                    <li>Scope of work yang detail</li>
+                    <li>Payment terms dan schedule</li>
+                    <li>Revision policy</li>
+                </ul>
+                
+                <h5>Regular Updates</h5>
+                <p>Saya selalu mengirim update progress setiap 2-3 hari, bahkan jika tidak ada perubahan signifikan. Ini membangun trust dengan klien.</p>
+                
+                <h4>2. Menghindari Scope Creep</h4>
+                <p>Scope creep adalah musuh terbesar freelancer. Cara mengatasinya:</p>
+                <ul>
+                    <li>Dokumentasikan semua requirements di awal</li>
+                    <li>Buat change request process yang jelas</li>
+                    <li>Charge additional untuk extra work</li>
+                    <li>Educate klien tentang impact dari perubahan</li>
+                </ul>
+                
+                <h4>3. Time Management</h4>
+                <h5>Tools yang Saya Gunakan:</h5>
+                <ul>
+                    <li><strong>Toggl</strong> - Time tracking</li>
+                    <li><strong>Trello</strong> - Project management</li>
+                    <li><strong>Calendly</strong> - Meeting scheduling</li>
+                    <li><strong>Slack</strong> - Client communication</li>
+                </ul>
+                
+                <h4>4. Handling Difficult Clients</h4>
+                <p>Tidak semua klien mudah dihadapi. Tips untuk klien yang sulit:</p>
+                <ul>
+                    <li>Stay professional dan patient</li>
+                    <li>Document semua komunikasi</li>
+                    <li>Set boundaries yang firm tapi respectful</li>
+                    <li>Know when to walk away</li>
+                </ul>
+                
+                <h4>5. Building Long-term Relationships</h4>
+                <p>Klien yang puas akan kembali dan refer ke orang lain. Cara membangun relationship:</p>
+                <ul>
+                    <li>Deliver lebih dari yang dijanjikan</li>
+                    <li>Be proactive dalam suggest improvements</li>
+                    <li>Follow up setelah project selesai</li>
+                    <li>Maintain contact dengan past clients</li>
+                </ul>
+            `
+        },
+        7: {
+            title: "Memahami ChatGPT dan Large Language Models",
+            category: "Technology",
+            date: "1 Jan 2025",
+            views: "1,890 views",
+            image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop",
+            content: `
+                <h3>Era Baru Artificial Intelligence</h3>
+                <p>ChatGPT dan Large Language Models (LLMs) telah mengubah landscape teknologi secara fundamental. Mari kita pahami cara kerjanya dan potensi implementasinya.</p>
+                
+                <h4>Apa itu Large Language Models?</h4>
+                <p>LLMs adalah neural networks yang dilatih dengan massive datasets text untuk memahami dan menggenerate human-like text. Model seperti GPT-4, Claude, dan Gemini menggunakan transformer architecture.</p>
+                
+                <h4>Cara Kerja ChatGPT</h4>
+                <h5>1. Pre-training</h5>
+                <p>Model dilatih dengan triliunan token text dari internet untuk mempelajari patterns bahasa, fakta, dan reasoning.</p>
+                
+                <h5>2. Fine-tuning</h5>
+                <p>Model di-fine-tune dengan supervised learning dan reinforcement learning from human feedback (RLHF).</p>
+                
+                <h5>3. Inference</h5>
+                <p>Saat menerima prompt, model memprediksi token berikutnya berdasarkan context dan training data.</p>
+                
+                <h4>Implementasi dalam Development</h4>
+                <h5>Code Generation</h5>
+                <ul>
+                    <li><strong>GitHub Copilot</strong> - AI pair programming</li>
+                    <li><strong>Code explanation</strong> - Memahami complex code</li>
+                    <li><strong>Bug fixing</strong> - Debugging assistance</li>
+                    <li><strong>Documentation</strong> - Auto-generate docs</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Prompt Engineering</strong> - Craft clear, specific prompts</li>
+                    <li><strong>Context Management</strong> - Maintain conversation context</li>
+                    <li><strong>Error Handling</strong> - Handle API failures gracefully</li>
+                    <li><strong>Cost Optimization</strong> - Monitor token usage</li>
+                </ul>
+            `
+        },
+        8: {
+            title: "Menguasai Git dan GitHub untuk Developer",
+            category: "Tutorial",
+            date: "28 Des 2024",
+            views: "1,456 views",
+            image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=300&fit=crop",
+            content: `
+                <h3>Version Control yang Efektif</h3>
+                <p>Git adalah tool wajib untuk setiap developer. Tutorial ini akan mengajarkan Anda dari basic hingga advanced Git workflows.</p>
+                
+                <h4>Git Fundamentals</h4>
+                <h5>Setup Awal</h5>
+                <pre><code>git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+git init my-project
+cd my-project</code></pre>
+                
+                <h5>Basic Commands</h5>
+                <pre><code># Add files
+git add .
+git add filename.js
+
+# Commit changes
+git commit -m "Add new feature"
+
+# Check status
+git status
+git log --oneline</code></pre>
+                
+                <h4>Branching Strategy</h4>
+                <h5>Git Flow Model</h5>
+                <ul>
+                    <li><strong>main/master</strong> - Production-ready code</li>
+                    <li><strong>develop</strong> - Integration branch</li>
+                    <li><strong>feature/*</strong> - New features</li>
+                    <li><strong>hotfix/*</strong> - Critical bug fixes</li>
+                    <li><strong>release/*</strong> - Release preparation</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Commit Messages</strong> - Use conventional commits format</li>
+                    <li><strong>Small Commits</strong> - Atomic changes yang focused</li>
+                    <li><strong>Branch Naming</strong> - Consistent naming convention</li>
+                    <li><strong>Regular Pulls</strong> - Stay updated dengan remote changes</li>
+                </ul>
+            `
+        },
+        9: {
+            title: "Docker untuk Developer: Containerization Made Easy",
+            category: "Programming",
+            date: "25 Des 2024",
+            views: "987 views",
+            image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=600&h=300&fit=crop",
+            content: `
+                <h3>Containerization dengan Docker</h3>
+                <p>Docker mengubah cara kita develop, ship, dan run applications. Mari pelajari Docker dari dasar hingga production deployment.</p>
+                
+                <h4>Mengapa Docker?</h4>
+                <h5>Problems yang Dipecahkan:</h5>
+                <ul>
+                    <li><strong>"It works on my machine"</strong> - Consistent environment</li>
+                    <li><strong>Dependency conflicts</strong> - Isolated containers</li>
+                    <li><strong>Scaling issues</strong> - Easy horizontal scaling</li>
+                    <li><strong>Deployment complexity</strong> - Simplified deployment</li>
+                </ul>
+                
+                <h4>Docker Fundamentals</h4>
+                <h5>Key Concepts</h5>
+                <ul>
+                    <li><strong>Image</strong> - Blueprint untuk container</li>
+                    <li><strong>Container</strong> - Running instance dari image</li>
+                    <li><strong>Dockerfile</strong> - Instructions untuk build image</li>
+                    <li><strong>Registry</strong> - Repository untuk images (Docker Hub)</li>
+                </ul>
+                
+                <h4>Production Considerations</h4>
+                <h5>Security</h5>
+                <ul>
+                    <li>Use non-root users</li>
+                    <li>Scan images for vulnerabilities</li>
+                    <li>Use minimal base images (Alpine)</li>
+                    <li>Don't include secrets in images</li>
+                </ul>
+            `
+        },
+        10: {
+            title: "AWS vs Azure vs Google Cloud: Perbandingan 2025",
+            category: "Technology",
+            date: "22 Des 2024",
+            views: "2,234 views",
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop",
+            content: `
+                <h3>Cloud Provider Comparison</h3>
+                <p>Memilih cloud provider yang tepat adalah keputusan strategis. Mari bandingkan ketiga giant cloud computing ini dari berbagai aspek.</p>
+                
+                <h4>Market Share dan Positioning</h4>
+                <h5>Amazon Web Services (AWS)</h5>
+                <ul>
+                    <li><strong>Market Leader</strong> - ~32% market share</li>
+                    <li><strong>Mature Platform</strong> - Launched 2006</li>
+                    <li><strong>Comprehensive Services</strong> - 200+ services</li>
+                    <li><strong>Strong Enterprise Focus</strong></li>
+                </ul>
+                
+                <h5>Microsoft Azure</h5>
+                <ul>
+                    <li><strong>Fast Growing</strong> - ~23% market share</li>
+                    <li><strong>Enterprise Integration</strong> - Strong Microsoft ecosystem</li>
+                    <li><strong>Hybrid Cloud Leader</strong> - Azure Arc, Azure Stack</li>
+                    <li><strong>AI/ML Focus</strong> - Azure Cognitive Services</li>
+                </ul>
+                
+                <h5>Google Cloud Platform (GCP)</h5>
+                <ul>
+                    <li><strong>Innovation Leader</strong> - ~10% market share</li>
+                    <li><strong>Data & Analytics</strong> - BigQuery, TensorFlow</li>
+                    <li><strong>Kubernetes Native</strong> - GKE excellence</li>
+                    <li><strong>Competitive Pricing</strong></li>
+                </ul>
+                
+                <h4>Rekomendasi Berdasarkan Use Case</h4>
+                <h5>Pilih AWS jika:</h5>
+                <ul>
+                    <li>Butuh ecosystem yang paling lengkap</li>
+                    <li>Enterprise dengan complex requirements</li>
+                    <li>Team sudah familiar dengan AWS</li>
+                </ul>
+                
+                <h5>Pilih Azure jika:</h5>
+                <ul>
+                    <li>Heavy Microsoft stack (Windows, .NET, Office 365)</li>
+                    <li>Hybrid cloud requirements</li>
+                    <li>Enterprise dengan Microsoft licensing</li>
+                </ul>
+                
+                <h5>Pilih GCP jika:</h5>
+                <ul>
+                    <li>Focus pada data analytics dan ML</li>
+                    <li>Kubernetes-heavy workloads</li>
+                    <li>Cost optimization adalah priority</li>
+                </ul>
+            `
+        },
+        11: {
+            title: "Remote Work: Produktivitas dan Work-Life Balance",
+            category: "Freelance",
+            date: "20 Des 2024",
+            views: "1,123 views",
+            image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop",
+            content: `
+                <h3>Mastering Remote Work</h3>
+                <p>Remote work bukan hanya trend, tapi sudah menjadi new normal. Berikut strategi untuk sukses bekerja remote sambil menjaga work-life balance.</p>
+                
+                <h4>Setting Up Your Remote Workspace</h4>
+                <h5>Physical Environment</h5>
+                <ul>
+                    <li><strong>Dedicated Workspace</strong> - Pisahkan area kerja dari area istirahat</li>
+                    <li><strong>Ergonomic Setup</strong> - Kursi yang nyaman, monitor di eye level</li>
+                    <li><strong>Good Lighting</strong> - Natural light atau LED yang tidak menyilaukan</li>
+                    <li><strong>Minimal Distractions</strong> - Jauh dari TV, tempat tidur, atau high-traffic areas</li>
+                </ul>
+                
+                <h4>Productivity Strategies</h4>
+                <h5>Essential Tools</h5>
+                <h6>Communication</h6>
+                <ul>
+                    <li><strong>Slack/Discord</strong> - Team communication</li>
+                    <li><strong>Zoom/Google Meet</strong> - Video conferences</li>
+                    <li><strong>Loom</strong> - Screen recording untuk async communication</li>
+                </ul>
+                
+                <h4>Work-Life Balance</h4>
+                <h5>Setting Boundaries</h5>
+                <ul>
+                    <li><strong>Fixed Work Hours</strong> - Communicate availability clearly</li>
+                    <li><strong>Separate Devices</strong> - Different profiles untuk work dan personal</li>
+                    <li><strong>Physical Separation</strong> - "Close" your office at end of day</li>
+                    <li><strong>Learn to Say No</strong> - Protect your time dan energy</li>
+                </ul>
+            `
+        },
+        12: {
+            title: "Membangun RESTful API dengan Node.js dan Express",
+            category: "Tutorial",
+            date: "18 Des 2024",
+            views: "1,678 views",
+            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop",
+            content: `
+                <h3>Building Scalable REST APIs</h3>
+                <p>Tutorial lengkap membangun RESTful API yang scalable dengan Node.js, Express, dan best practices modern.</p>
+                
+                <h4>Project Setup</h4>
+                <h5>Initialize Project</h5>
+                <pre><code>mkdir my-api
+cd my-api
+npm init -y
+
+# Install dependencies
+npm install express mongoose dotenv cors helmet morgan
+npm install -D nodemon jest supertest</code></pre>
+                
+                <h4>Basic Express Setup</h4>
+                <pre><code>const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+
+const app = express();
+
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(morgan('combined'));
+app.use(express.json({ limit: '10mb' }));
+
+// Routes
+app.use('/api/users', require('./routes/users'));
+app.use('/api/posts', require('./routes/posts'));
+
+module.exports = app;</code></pre>
+                
+                <h4>RESTful Endpoints</h4>
+                <h5>CRUD Operations</h5>
+                <ul>
+                    <li><strong>GET /api/users</strong> - Get all users</li>
+                    <li><strong>GET /api/users/:id</strong> - Get user by ID</li>
+                    <li><strong>POST /api/users</strong> - Create new user</li>
+                    <li><strong>PUT /api/users/:id</strong> - Update user</li>
+                    <li><strong>DELETE /api/users/:id</strong> - Delete user</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Input Validation</strong> - Validate all incoming data</li>
+                    <li><strong>Error Handling</strong> - Consistent error responses</li>
+                    <li><strong>Authentication</strong> - JWT tokens untuk security</li>
+                    <li><strong>Rate Limiting</strong> - Prevent API abuse</li>
+                    <li><strong>Documentation</strong> - Use Swagger/OpenAPI</li>
+                </ul>
+            `
+        },
+        13: {
+            title: "SQL vs NoSQL: Kapan Menggunakan Database Mana?",
+            category: "Programming",
+            date: "15 Des 2024",
+            views: "1,345 views",
+            image: "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=600&h=300&fit=crop",
+            content: `
+                <h3>Database Selection Guide</h3>
+                <p>Memilih database yang tepat adalah keputusan arsitektur yang penting. Mari bandingkan SQL dan NoSQL dari berbagai aspek.</p>
+                
+                <h4>SQL Databases (Relational)</h4>
+                <h5>Karakteristik</h5>
+                <ul>
+                    <li><strong>ACID Compliance</strong> - Atomicity, Consistency, Isolation, Durability</li>
+                    <li><strong>Structured Data</strong> - Tabel dengan schema yang fixed</li>
+                    <li><strong>Relationships</strong> - Foreign keys dan joins</li>
+                    <li><strong>SQL Language</strong> - Standardized query language</li>
+                </ul>
+                
+                <h5>Popular SQL Databases</h5>
+                <ul>
+                    <li><strong>PostgreSQL</strong> - Advanced features, JSON support</li>
+                    <li><strong>MySQL</strong> - Popular, fast, reliable</li>
+                    <li><strong>SQLite</strong> - Lightweight, embedded</li>
+                    <li><strong>SQL Server</strong> - Microsoft ecosystem</li>
+                </ul>
+                
+                <h4>NoSQL Databases (Non-Relational)</h4>
+                <h5>Types of NoSQL</h5>
+                <ul>
+                    <li><strong>Document</strong> - MongoDB, CouchDB</li>
+                    <li><strong>Key-Value</strong> - Redis, DynamoDB</li>
+                    <li><strong>Column-Family</strong> - Cassandra, HBase</li>
+                    <li><strong>Graph</strong> - Neo4j, Amazon Neptune</li>
+                </ul>
+                
+                <h4>When to Use SQL</h4>
+                <ul>
+                    <li><strong>Complex Queries</strong> - Joins, aggregations, reporting</li>
+                    <li><strong>ACID Requirements</strong> - Financial transactions, critical data</li>
+                    <li><strong>Structured Data</strong> - Well-defined schema</li>
+                    <li><strong>Existing SQL Knowledge</strong> - Team expertise</li>
+                </ul>
+                
+                <h4>When to Use NoSQL</h4>
+                <ul>
+                    <li><strong>Rapid Development</strong> - Flexible schema</li>
+                    <li><strong>Big Data</strong> - Horizontal scaling needs</li>
+                    <li><strong>Real-time Applications</strong> - High performance requirements</li>
+                    <li><strong>Unstructured Data</strong> - JSON, documents, media files</li>
+                </ul>
+                
+                <h4>Hybrid Approaches</h4>
+                <h5>Polyglot Persistence</h5>
+                <p>Menggunakan multiple databases untuk different use cases dalam satu aplikasi:</p>
+                <ul>
+                    <li><strong>PostgreSQL</strong> - Core business data</li>
+                    <li><strong>Redis</strong> - Caching dan sessions</li>
+                    <li><strong>Elasticsearch</strong> - Search functionality</li>
+                    <li><strong>MongoDB</strong> - User-generated content</li>
+                </ul>
+                
+                <h4>Decision Framework</h4>
+                <p>Pertimbangkan faktor-faktor ini saat memilih database:</p>
+                <ul>
+                    <li><strong>Data Structure</strong> - Structured vs unstructured</li>
+                    <li><strong>Scalability Needs</strong> - Vertical vs horizontal</li>
+                    <li><strong>Consistency Requirements</strong> - ACID vs eventual consistency</li>
+                    <li><strong>Query Complexity</strong> - Simple lookups vs complex analytics</li>
+                    <li><strong>Team Expertise</strong> - Learning curve considerations</li>
+                </ul>
+            `
+        },
+        // Page 2 Articles (14-26)
+        14: {
+            title: "Cybersecurity untuk Developer: Melindungi Aplikasi dari Serangan",
+            category: "Programming",
+            date: "12 Des 2024",
+            views: "2,156 views",
+            image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
+            content: `
+                <h3>Keamanan Aplikasi di Era Digital</h3>
+                <p>Dengan meningkatnya cyber attacks, developer harus memahami prinsip-prinsip cybersecurity untuk melindungi aplikasi dan data pengguna.</p>
+                
+                <h4>Common Security Vulnerabilities</h4>
+                <h5>OWASP Top 10 2023</h5>
+                <ul>
+                    <li><strong>Injection Attacks</strong> - SQL injection, NoSQL injection, Command injection</li>
+                    <li><strong>Broken Authentication</strong> - Weak passwords, session management issues</li>
+                    <li><strong>Sensitive Data Exposure</strong> - Unencrypted data transmission</li>
+                    <li><strong>XML External Entities (XXE)</strong> - XML parser vulnerabilities</li>
+                    <li><strong>Broken Access Control</strong> - Insufficient authorization checks</li>
+                </ul>
+                
+                <h4>Secure Coding Practices</h4>
+                <h5>Input Validation</h5>
+                <pre><code>// Bad - Vulnerable to SQL injection
+const query = \`SELECT * FROM users WHERE id = \${userId}\`;
+
+// Good - Using parameterized queries
+const query = 'SELECT * FROM users WHERE id = ?';
+db.query(query, [userId]);</code></pre>
+                
+                <h5>Authentication & Authorization</h5>
+                <ul>
+                    <li><strong>Strong Password Policies</strong> - Minimum 12 characters, complexity requirements</li>
+                    <li><strong>Multi-Factor Authentication</strong> - SMS, email, atau authenticator apps</li>
+                    <li><strong>JWT Security</strong> - Proper token expiration dan refresh mechanisms</li>
+                    <li><strong>Role-Based Access Control</strong> - Principle of least privilege</li>
+                </ul>
+                
+                <h4>Data Protection</h4>
+                <h5>Encryption</h5>
+                <ul>
+                    <li><strong>Data at Rest</strong> - Database encryption, file system encryption</li>
+                    <li><strong>Data in Transit</strong> - HTTPS/TLS, secure API communication</li>
+                    <li><strong>Hashing Passwords</strong> - bcrypt, scrypt, atau Argon2</li>
+                </ul>
+                
+                <h4>Security Testing</h4>
+                <ul>
+                    <li><strong>Static Analysis</strong> - SonarQube, ESLint security rules</li>
+                    <li><strong>Dynamic Testing</strong> - OWASP ZAP, Burp Suite</li>
+                    <li><strong>Dependency Scanning</strong> - npm audit, Snyk, WhiteSource</li>
+                    <li><strong>Penetration Testing</strong> - Regular security assessments</li>
+                </ul>
+            `
+        },
+        15: {
+            title: "Blockchain dan Cryptocurrency: Teknologi di Balik Revolusi Digital",
+            category: "Technology",
+            date: "10 Des 2024",
+            views: "1,892 views",
+            image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=300&fit=crop",
+            content: `
+                <h3>Memahami Teknologi Blockchain</h3>
+                <p>Blockchain bukan hanya tentang cryptocurrency. Teknologi ini memiliki potensi untuk mengubah berbagai industri melalui desentralisasi dan transparansi.</p>
+                
+                <h4>Konsep Dasar Blockchain</h4>
+                <h5>Karakteristik Utama</h5>
+                <ul>
+                    <li><strong>Decentralized</strong> - Tidak ada single point of failure</li>
+                    <li><strong>Immutable</strong> - Data tidak dapat diubah setelah dikonfirmasi</li>
+                    <li><strong>Transparent</strong> - Semua transaksi dapat diverifikasi</li>
+                    <li><strong>Consensus Mechanism</strong> - Proof of Work, Proof of Stake</li>
+                </ul>
+                
+                <h4>Jenis-jenis Blockchain</h4>
+                <h5>Public Blockchain</h5>
+                <ul>
+                    <li><strong>Bitcoin</strong> - Digital currency pertama</li>
+                    <li><strong>Ethereum</strong> - Smart contracts platform</li>
+                    <li><strong>Solana</strong> - High-performance blockchain</li>
+                </ul>
+                
+                <h5>Private Blockchain</h5>
+                <ul>
+                    <li><strong>Hyperledger Fabric</strong> - Enterprise blockchain</li>
+                    <li><strong>R3 Corda</strong> - Financial services focus</li>
+                </ul>
+                
+                <h4>Smart Contracts</h4>
+                <h5>Ethereum Smart Contract Example</h5>
+                <pre><code>pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    uint256 private storedData;
+    
+    function set(uint256 x) public {
+        storedData = x;
+    }
+    
+    function get() public view returns (uint256) {
+        return storedData;
+    }
+}</code></pre>
+                
+                <h4>Use Cases Beyond Cryptocurrency</h4>
+                <ul>
+                    <li><strong>Supply Chain Management</strong> - Tracking produk dari origin ke consumer</li>
+                    <li><strong>Digital Identity</strong> - Self-sovereign identity solutions</li>
+                    <li><strong>Voting Systems</strong> - Transparent dan tamper-proof elections</li>
+                    <li><strong>Real Estate</strong> - Property ownership dan transfer</li>
+                    <li><strong>Healthcare</strong> - Secure medical records sharing</li>
+                </ul>
+                
+                <h4>Challenges dan Limitations</h4>
+                <ul>
+                    <li><strong>Scalability</strong> - Transaction throughput limitations</li>
+                    <li><strong>Energy Consumption</strong> - Proof of Work environmental impact</li>
+                    <li><strong>Regulatory Uncertainty</strong> - Evolving legal frameworks</li>
+                    <li><strong>User Experience</strong> - Complexity untuk mainstream adoption</li>
+                </ul>
+            `
+        },
+        16: {
+            title: "Machine Learning untuk Pemula: Dari Teori ke Implementasi",
+            category: "Technology",
+            date: "8 Des 2024",
+            views: "2,445 views",
+            image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=300&fit=crop",
+            content: `
+                <h3>Pengenalan Machine Learning</h3>
+                <p>Machine Learning adalah subset dari AI yang memungkinkan komputer belajar dan membuat keputusan tanpa diprogram secara eksplisit untuk setiap tugas.</p>
+                
+                <h4>Jenis-jenis Machine Learning</h4>
+                <h5>Supervised Learning</h5>
+                <ul>
+                    <li><strong>Classification</strong> - Prediksi kategori (spam detection, image recognition)</li>
+                    <li><strong>Regression</strong> - Prediksi nilai numerik (harga rumah, stock prices)</li>
+                </ul>
+                
+                <h5>Unsupervised Learning</h5>
+                <ul>
+                    <li><strong>Clustering</strong> - Mengelompokkan data serupa</li>
+                    <li><strong>Association</strong> - Menemukan pola hubungan</li>
+                </ul>
+                
+                <h4>Popular ML Libraries</h4>
+                <h5>Python Ecosystem</h5>
+                <pre><code>import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import accuracy_score
+
+# Load data
+data = pd.read_csv('dataset.csv')
+X = data[['feature1', 'feature2']]
+y = data['target']
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict
+predictions = model.predict(X_test)</code></pre>
+                
+                <h4>Real-world Applications</h4>
+                <ul>
+                    <li><strong>Recommendation Systems</strong> - Netflix, Spotify, Amazon</li>
+                    <li><strong>Computer Vision</strong> - Face recognition, medical imaging</li>
+                    <li><strong>Natural Language Processing</strong> - Chatbots, translation</li>
+                    <li><strong>Predictive Analytics</strong> - Sales forecasting, risk assessment</li>
+                </ul>
+            `
+        },
+        17: {
+            title: "Progressive Web Apps (PWA): Masa Depan Aplikasi Web",
+            category: "Tutorial",
+            date: "6 Des 2024",
+            views: "1,678 views",
+            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=300&fit=crop",
+            content: `
+                <h3>Apa itu Progressive Web Apps?</h3>
+                <p>PWA menggabungkan yang terbaik dari web dan mobile apps, memberikan pengalaman native-like dengan teknologi web modern.</p>
+                
+                <h4>Karakteristik PWA</h4>
+                <ul>
+                    <li><strong>Progressive</strong> - Bekerja untuk semua user, regardless of browser</li>
+                    <li><strong>Responsive</strong> - Fit any form factor: desktop, mobile, tablet</li>
+                    <li><strong>Offline-first</strong> - Service workers enable offline functionality</li>
+                    <li><strong>App-like</strong> - Native app-style interactions dan navigation</li>
+                    <li><strong>Secure</strong> - Served via HTTPS</li>
+                    <li><strong>Installable</strong> - Can be installed on home screen</li>
+                </ul>
+                
+                <h4>Core Technologies</h4>
+                <h5>Service Workers</h5>
+                <pre><code>// sw.js
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open('v1').then(cache => {
+      return cache.addAll([
+        '/',
+        '/styles.css',
+        '/script.js',
+        '/offline.html'
+      ]);
+    })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
+});</code></pre>
+                
+                <h5>Web App Manifest</h5>
+                <pre><code>{
+  "name": "My PWA",
+  "short_name": "PWA",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}</code></pre>
+                
+                <h4>Benefits</h4>
+                <ul>
+                    <li><strong>Improved Performance</strong> - Caching dan lazy loading</li>
+                    <li><strong>Better User Engagement</strong> - Push notifications</li>
+                    <li><strong>Lower Development Cost</strong> - One codebase for all platforms</li>
+                    <li><strong>Easy Updates</strong> - No app store approval needed</li>
+                </ul>
+            `
+        },
+        18: {
+            title: "Microservices Architecture: Membangun Aplikasi yang Scalable",
+            category: "Programming",
+            date: "4 Des 2024",
+            views: "1,934 views",
+            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop",
+            content: `
+                <h3>Dari Monolith ke Microservices</h3>
+                <p>Microservices architecture memecah aplikasi besar menjadi services kecil yang independent, memungkinkan scalability dan maintainability yang lebih baik.</p>
+                
+                <h4>Karakteristik Microservices</h4>
+                <ul>
+                    <li><strong>Single Responsibility</strong> - Setiap service fokus pada satu business capability</li>
+                    <li><strong>Decentralized</strong> - Independent deployment dan scaling</li>
+                    <li><strong>Technology Agnostic</strong> - Setiap service bisa menggunakan tech stack berbeda</li>
+                    <li><strong>Fault Tolerant</strong> - Failure di satu service tidak mempengaruhi yang lain</li>
+                </ul>
+                
+                <h4>Communication Patterns</h4>
+                <h5>Synchronous Communication</h5>
+                <ul>
+                    <li><strong>REST APIs</strong> - HTTP-based communication</li>
+                    <li><strong>GraphQL</strong> - Flexible query language</li>
+                    <li><strong>gRPC</strong> - High-performance RPC framework</li>
+                </ul>
+                
+                <h5>Asynchronous Communication</h5>
+                <ul>
+                    <li><strong>Message Queues</strong> - RabbitMQ, Apache Kafka</li>
+                    <li><strong>Event Sourcing</strong> - Event-driven architecture</li>
+                    <li><strong>Pub/Sub</strong> - Publisher-subscriber pattern</li>
+                </ul>
+                
+                <h4>Challenges</h4>
+                <ul>
+                    <li><strong>Distributed System Complexity</strong> - Network latency, partial failures</li>
+                    <li><strong>Data Consistency</strong> - Eventual consistency, distributed transactions</li>
+                    <li><strong>Service Discovery</strong> - Dynamic service location</li>
+                    <li><strong>Monitoring & Debugging</strong> - Distributed tracing, centralized logging</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Start with Monolith</strong> - Evolve to microservices when needed</li>
+                    <li><strong>Domain-Driven Design</strong> - Align services dengan business domains</li>
+                    <li><strong>API Gateway</strong> - Single entry point untuk client requests</li>
+                    <li><strong>Circuit Breaker Pattern</strong> - Prevent cascading failures</li>
+                </ul>
+            `
+        },
+        19: {
+            title: "DevOps Culture: Menggabungkan Development dan Operations",
+            category: "Technology",
+            date: "2 Des 2024",
+            views: "1,567 views",
+            image: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=600&h=300&fit=crop",
+            content: `
+                <h3>Transformasi Digital dengan DevOps</h3>
+                <p>DevOps bukan hanya tentang tools, tapi cultural shift yang menggabungkan development dan operations untuk delivery yang lebih cepat dan reliable.</p>
+                
+                <h4>Prinsip-prinsip DevOps</h4>
+                <ul>
+                    <li><strong>Collaboration</strong> - Breaking down silos antara teams</li>
+                    <li><strong>Automation</strong> - Automate repetitive tasks</li>
+                    <li><strong>Continuous Integration</strong> - Frequent code integration</li>
+                    <li><strong>Continuous Delivery</strong> - Automated deployment pipeline</li>
+                    <li><strong>Monitoring & Feedback</strong> - Real-time insights</li>
+                </ul>
+                
+                <h4>CI/CD Pipeline</h4>
+                <h5>Continuous Integration</h5>
+                <pre><code># .github/workflows/ci.yml
+name: CI Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm test
+      - run: npm run build</code></pre>
+                
+                <h4>Infrastructure as Code</h4>
+                <h5>Terraform Example</h5>
+                <pre><code>resource "aws_instance" "web" {
+  ami           = "ami-0c55b159cbfafe1d0"
+  instance_type = "t2.micro"
+  
+  tags = {
+    Name = "WebServer"
+    Environment = "Production"
+  }
+}</code></pre>
+                
+                <h4>Monitoring & Observability</h4>
+                <ul>
+                    <li><strong>Metrics</strong> - Prometheus, Grafana</li>
+                    <li><strong>Logging</strong> - ELK Stack (Elasticsearch, Logstash, Kibana)</li>
+                    <li><strong>Tracing</strong> - Jaeger, Zipkin</li>
+                    <li><strong>Alerting</strong> - PagerDuty, Slack integrations</li>
+                </ul>
+                
+                <h4>Benefits</h4>
+                <ul>
+                    <li><strong>Faster Time to Market</strong> - Reduced deployment time</li>
+                    <li><strong>Improved Quality</strong> - Automated testing dan validation</li>
+                    <li><strong>Better Reliability</strong> - Consistent environments</li>
+                    <li><strong>Enhanced Collaboration</strong> - Shared responsibility</li>
+                </ul>
+            `
+        },
+        20: {
+            title: "Sustainable Software Development: Green Coding Practices",
+            category: "Programming",
+            date: "30 Nov 2024",
+            views: "1,234 views",
+            image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&h=300&fit=crop",
+            content: `
+                <h3>Coding untuk Planet yang Lebih Hijau</h3>
+                <p>Dengan meningkatnya kesadaran lingkungan, developer perlu mempertimbangkan environmental impact dari software yang mereka buat.</p>
+                
+                <h4>Environmental Impact of Software</h4>
+                <h5>Carbon Footprint Sources</h5>
+                <ul>
+                    <li><strong>Data Centers</strong> - Server energy consumption</li>
+                    <li><strong>Network Traffic</strong> - Data transmission energy</li>
+                    <li><strong>End-user Devices</strong> - CPU, memory, battery usage</li>
+                    <li><strong>Development Process</strong> - Build servers, testing environments</li>
+                </ul>
+                
+                <h4>Green Coding Principles</h4>
+                <h5>Efficient Algorithms</h5>
+                <pre><code>// Inefficient - O(n²)
+function findDuplicates(arr) {
+    const duplicates = [];
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] === arr[j]) {
+                duplicates.push(arr[i]);
+            }
+        }
+    }
+    return duplicates;
+}
+
+// Efficient - O(n)
+function findDuplicates(arr) {
+    const seen = new Set();
+    const duplicates = new Set();
+    
+    for (const item of arr) {
+        if (seen.has(item)) {
+            duplicates.add(item);
+        } else {
+            seen.add(item);
+        }
+    }
+    return Array.from(duplicates);
+}</code></pre>
+                
+                <h4>Optimization Strategies</h4>
+                <h5>Frontend Optimization</h5>
+                <ul>
+                    <li><strong>Code Splitting</strong> - Load only necessary code</li>
+                    <li><strong>Image Optimization</strong> - WebP format, lazy loading</li>
+                    <li><strong>Caching</strong> - Reduce server requests</li>
+                    <li><strong>Minification</strong> - Smaller file sizes</li>
+                </ul>
+                
+                <h5>Backend Optimization</h5>
+                <ul>
+                    <li><strong>Database Optimization</strong> - Efficient queries, indexing</li>
+                    <li><strong>Caching Layers</strong> - Redis, Memcached</li>
+                    <li><strong>Serverless Architecture</strong> - Pay-per-use model</li>
+                    <li><strong>Auto-scaling</strong> - Dynamic resource allocation</li>
+                </ul>
+                
+                <h4>Measuring Carbon Impact</h4>
+                <ul>
+                    <li><strong>Website Carbon Calculator</strong> - Measure web page emissions</li>
+                    <li><strong>Green Web Foundation</strong> - Check hosting sustainability</li>
+                    <li><strong>Code Carbon</strong> - Python library untuk measuring ML training emissions</li>
+                </ul>
+                
+                <h4>Sustainable Practices</h4>
+                <ul>
+                    <li><strong>Choose Green Hosting</strong> - Renewable energy providers</li>
+                    <li><strong>Optimize Data Storage</strong> - Compress data, clean up unused files</li>
+                    <li><strong>Efficient Testing</strong> - Targeted testing, parallel execution</li>
+                    <li><strong>Remote Work</strong> - Reduce commuting carbon footprint</li>
+                </ul>
+            `
+        },
+        21: {
+            title: "Mental Health untuk Developer: Mengatasi Burnout dan Stress",
+            category: "Freelance",
+            date: "28 Nov 2024",
+            views: "2,789 views",
+            image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop",
+            content: `
+                <h3>Kesehatan Mental di Dunia Tech</h3>
+                <p>Industri teknologi yang fast-paced sering menyebabkan stress dan burnout. Penting untuk menjaga kesehatan mental sambil mengejar karir di tech.</p>
+                
+                <h4>Recognizing Burnout Signs</h4>
+                <h5>Physical Symptoms</h5>
+                <ul>
+                    <li><strong>Chronic Fatigue</strong> - Merasa lelah terus-menerus</li>
+                    <li><strong>Sleep Disorders</strong> - Insomnia atau oversleeping</li>
+                    <li><strong>Headaches</strong> - Frequent tension headaches</li>
+                    <li><strong>Weakened Immunity</strong> - Sering sakit</li>
+                </ul>
+                
+                <h5>Emotional Symptoms</h5>
+                <ul>
+                    <li><strong>Cynicism</strong> - Negative attitude toward work</li>
+                    <li><strong>Irritability</strong> - Short temper dengan colleagues</li>
+                    <li><strong>Anxiety</strong> - Constant worry about deadlines</li>
+                    <li><strong>Depression</strong> - Feeling hopeless atau worthless</li>
+                </ul>
+                
+                <h4>Stress Management Techniques</h4>
+                <h5>Time Management</h5>
+                <ul>
+                    <li><strong>Pomodoro Technique</strong> - 25-minute focused work sessions</li>
+                    <li><strong>Time Blocking</strong> - Dedicated time slots untuk different tasks</li>
+                    <li><strong>Priority Matrix</strong> - Urgent vs Important categorization</li>
+                    <li><strong>Say No</strong> - Learn to decline non-essential requests</li>
+                </ul>
+                
+                <h5>Healthy Habits</h5>
+                <ul>
+                    <li><strong>Regular Exercise</strong> - 30 minutes daily activity</li>
+                    <li><strong>Proper Nutrition</strong> - Balanced meals, avoid excessive caffeine</li>
+                    <li><strong>Sleep Hygiene</strong> - 7-9 hours quality sleep</li>
+                    <li><strong>Mindfulness</strong> - Meditation, deep breathing exercises</li>
+                </ul>
+                
+                <h4>Work-Life Balance</h4>
+                <h5>Setting Boundaries</h5>
+                <ul>
+                    <li><strong>Fixed Work Hours</strong> - Clear start dan end times</li>
+                    <li><strong>Separate Workspace</strong> - Physical boundary untuk remote work</li>
+                    <li><strong>Digital Detox</strong> - Regular breaks from screens</li>
+                    <li><strong>Vacation Time</strong> - Actually take your PTO</li>
+                </ul>
+                
+                <h4>Building Support Systems</h4>
+                <ul>
+                    <li><strong>Peer Networks</strong> - Connect dengan fellow developers</li>
+                    <li><strong>Mentorship</strong> - Both being mentored dan mentoring others</li>
+                    <li><strong>Professional Help</strong> - Therapy, counseling when needed</li>
+                    <li><strong>Company Resources</strong> - EAP programs, mental health benefits</li>
+                </ul>
+                
+                <h4>Creating Sustainable Practices</h4>
+                <ul>
+                    <li><strong>Continuous Learning</strong> - Keep skills updated without overwhelming</li>
+                    <li><strong>Side Projects</strong> - Creative outlets outside work</li>
+                    <li><strong>Community Involvement</strong> - Contribute to open source, attend meetups</li>
+                    <li><strong>Regular Check-ins</strong> - Self-assessment of mental state</li>
+                </ul>
+            `
+        },
+        // Page 3 Articles (22-35)
+        22: {
+            title: "Web3 dan Decentralized Applications (DApps): Era Internet Baru",
+            category: "Technology",
+            date: "26 Nov 2024",
+            views: "1,987 views",
+            image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=300&fit=crop",
+            content: `
+                <h3>Revolusi Internet: Dari Web2 ke Web3</h3>
+                <p>Web3 mewakili evolusi internet menuju desentralisasi, memberikan kontrol data kembali kepada pengguna dan menciptakan ekonomi digital yang lebih fair.</p>
+                
+                <h4>Perbedaan Web1, Web2, dan Web3</h4>
+                <h5>Web1 (1990-2004): Read-Only Web</h5>
+                <ul>
+                    <li><strong>Static Content</strong> - Halaman web statis</li>
+                    <li><strong>One-way Communication</strong> - User hanya bisa membaca</li>
+                    <li><strong>Decentralized</strong> - Tidak ada platform dominan</li>
+                </ul>
+                
+                <h5>Web2 (2004-sekarang): Read-Write Web</h5>
+                <ul>
+                    <li><strong>Interactive Content</strong> - Social media, user-generated content</li>
+                    <li><strong>Centralized Platforms</strong> - Facebook, Google, Amazon</li>
+                    <li><strong>Data Ownership</strong> - Platform memiliki data user</li>
+                </ul>
+                
+                <h5>Web3 (Future): Read-Write-Own Web</h5>
+                <ul>
+                    <li><strong>Decentralized</strong> - Blockchain-based applications</li>
+                    <li><strong>User Ownership</strong> - User memiliki data dan aset digital</li>
+                    <li><strong>Trustless</strong> - Smart contracts menggantikan intermediaries</li>
+                </ul>
+                
+                <h4>Core Technologies</h4>
+                <h5>Blockchain Networks</h5>
+                <ul>
+                    <li><strong>Ethereum</strong> - Smart contract platform utama</li>
+                    <li><strong>Polygon</strong> - Layer 2 scaling solution</li>
+                    <li><strong>Solana</strong> - High-performance blockchain</li>
+                    <li><strong>Avalanche</strong> - Fast finality dan low fees</li>
+                </ul>
+                
+                <h4>Building DApps</h4>
+                <h5>Frontend Development</h5>
+                <pre><code>// Web3.js integration
+import Web3 from 'web3';
+
+const web3 = new Web3(window.ethereum);
+
+// Connect wallet
+async function connectWallet() {
+    if (window.ethereum) {
+        try {
+            await window.ethereum.request({ 
+                method: 'eth_requestAccounts' 
+            });
+            const accounts = await web3.eth.getAccounts();
+            return accounts[0];
+        } catch (error) {
+            console.error('User denied account access');
+        }
+    }
+}</code></pre>
+                
+                <h4>Popular DApp Categories</h4>
+                <ul>
+                    <li><strong>DeFi</strong> - Decentralized Finance (Uniswap, Compound)</li>
+                    <li><strong>NFT Marketplaces</strong> - OpenSea, Foundation</li>
+                    <li><strong>Gaming</strong> - Axie Infinity, Decentraland</li>
+                    <li><strong>Social Networks</strong> - Lens Protocol, Farcaster</li>
+                </ul>
+                
+                <h4>Challenges dan Opportunities</h4>
+                <ul>
+                    <li><strong>Scalability</strong> - Transaction throughput limitations</li>
+                    <li><strong>User Experience</strong> - Complex wallet management</li>
+                    <li><strong>Regulation</strong> - Evolving legal landscape</li>
+                    <li><strong>Environmental Impact</strong> - Energy consumption concerns</li>
+                </ul>
+            `
+        },
+        23: {
+            title: "Quantum Computing: Masa Depan Komputasi yang Revolusioner",
+            category: "Technology",
+            date: "24 Nov 2024",
+            views: "1,456 views",
+            image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=300&fit=crop",
+            content: `
+                <h3>Komputasi Kuantum: Beyond Classical Computing</h3>
+                <p>Quantum computing memanfaatkan prinsip mekanika kuantum untuk memproses informasi dengan cara yang tidak mungkin dilakukan komputer klasik.</p>
+                
+                <h4>Prinsip Dasar Quantum Computing</h4>
+                <h5>Qubit vs Classical Bit</h5>
+                <ul>
+                    <li><strong>Classical Bit</strong> - Hanya bisa 0 atau 1</li>
+                    <li><strong>Qubit</strong> - Bisa dalam superposition (0 dan 1 sekaligus)</li>
+                    <li><strong>Entanglement</strong> - Qubits yang terhubung secara kuantum</li>
+                    <li><strong>Quantum Interference</strong> - Manipulasi probabilitas hasil</li>
+                </ul>
+                
+                <h4>Quantum Algorithms</h4>
+                <h5>Shor's Algorithm</h5>
+                <p>Dapat memfaktorkan bilangan besar secara eksponensial lebih cepat dari algoritma klasik, mengancam keamanan RSA encryption.</p>
+                
+                <h5>Grover's Algorithm</h5>
+                <p>Pencarian database tidak terurut dengan speedup kuadratik dibanding algoritma klasik.</p>
+                
+                <h4>Current Quantum Platforms</h4>
+                <h5>IBM Quantum</h5>
+                <ul>
+                    <li><strong>Qiskit</strong> - Open-source quantum computing framework</li>
+                    <li><strong>IBM Quantum Network</strong> - Cloud access to quantum computers</li>
+                    <li><strong>Quantum Volume</strong> - Metric untuk quantum computer performance</li>
+                </ul>
+                
+                <h5>Google Quantum AI</h5>
+                <ul>
+                    <li><strong>Cirq</strong> - Python library untuk quantum circuits</li>
+                    <li><strong>Quantum Supremacy</strong> - Sycamore processor achievement</li>
+                </ul>
+                
+                <h4>Programming Quantum Computers</h4>
+                <h5>Qiskit Example</h5>
+                <pre><code>from qiskit import QuantumCircuit, execute, Aer
+from qiskit.visualization import plot_histogram
+
+# Create quantum circuit
+qc = QuantumCircuit(2, 2)
+
+# Apply Hadamard gate
+qc.h(0)
+
+# Apply CNOT gate
+qc.cx(0, 1)
+
+# Measure qubits
+qc.measure([0, 1], [0, 1])
+
+# Execute on simulator
+backend = Aer.get_backend('qasm_simulator')
+job = execute(qc, backend, shots=1024)
+result = job.result()
+counts = result.get_counts(qc)</code></pre>
+                
+                <h4>Applications</h4>
+                <ul>
+                    <li><strong>Cryptography</strong> - Breaking dan creating new encryption</li>
+                    <li><strong>Drug Discovery</strong> - Molecular simulation</li>
+                    <li><strong>Financial Modeling</strong> - Risk analysis dan optimization</li>
+                    <li><strong>Machine Learning</strong> - Quantum ML algorithms</li>
+                    <li><strong>Climate Modeling</strong> - Complex system simulation</li>
+                </ul>
+                
+                <h4>Challenges</h4>
+                <ul>
+                    <li><strong>Quantum Decoherence</strong> - Fragile quantum states</li>
+                    <li><strong>Error Rates</strong> - High noise dalam current systems</li>
+                    <li><strong>Scalability</strong> - Building large-scale quantum computers</li>
+                    <li><strong>Cost</strong> - Expensive infrastructure requirements</li>
+                </ul>
+            `
+        },
+        24: {
+            title: "API Design Best Practices: Membangun Interface yang Robust",
+            category: "Programming",
+            date: "22 Nov 2024",
+            views: "2,134 views",
+            image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=300&fit=crop",
+            content: `
+                <h3>Designing APIs for Success</h3>
+                <p>API yang baik adalah fondasi dari aplikasi modern. Design yang thoughtful dapat membuat perbedaan antara API yang loved dan API yang abandoned.</p>
+                
+                <h4>RESTful API Principles</h4>
+                <h5>HTTP Methods</h5>
+                <ul>
+                    <li><strong>GET</strong> - Retrieve data (idempotent, safe)</li>
+                    <li><strong>POST</strong> - Create new resource</li>
+                    <li><strong>PUT</strong> - Update/replace entire resource (idempotent)</li>
+                    <li><strong>PATCH</strong> - Partial update</li>
+                    <li><strong>DELETE</strong> - Remove resource (idempotent)</li>
+                </ul>
+                
+                <h5>Resource Naming</h5>
+                <pre><code>// Good - Noun-based, hierarchical
+GET /api/v1/users
+GET /api/v1/users/123
+GET /api/v1/users/123/posts
+POST /api/v1/users/123/posts
+
+// Bad - Verb-based, inconsistent
+GET /api/getUsers
+GET /api/user?id=123
+GET /api/getUserPosts/123</code></pre>
+                
+                <h4>Response Design</h4>
+                <h5>Consistent Response Structure</h5>
+                <pre><code>{
+  "success": true,
+  "data": {
+    "id": 123,
+    "name": "John Doe",
+    "email": "john@example.com"
+  },
+  "meta": {
+    "timestamp": "2024-11-22T10:30:00Z",
+    "version": "1.0"
+  }
+}
+
+// Error Response
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid email format",
+    "details": {
+      "field": "email",
+      "value": "invalid-email"
+    }
+  }
+}</code></pre>
+                
+                <h4>Status Codes</h4>
+                <h5>Success Codes</h5>
+                <ul>
+                    <li><strong>200 OK</strong> - Successful GET, PUT, PATCH</li>
+                    <li><strong>201 Created</strong> - Successful POST</li>
+                    <li><strong>204 No Content</strong> - Successful DELETE</li>
+                </ul>
+                
+                <h5>Client Error Codes</h5>
+                <ul>
+                    <li><strong>400 Bad Request</strong> - Invalid request syntax</li>
+                    <li><strong>401 Unauthorized</strong> - Authentication required</li>
+                    <li><strong>403 Forbidden</strong> - Access denied</li>
+                    <li><strong>404 Not Found</strong> - Resource doesn't exist</li>
+                    <li><strong>422 Unprocessable Entity</strong> - Validation errors</li>
+                </ul>
+                
+                <h4>Pagination</h4>
+                <h5>Cursor-based Pagination</h5>
+                <pre><code>GET /api/v1/posts?limit=20&cursor=eyJpZCI6MTIz
+
+{
+  "data": [...],
+  "pagination": {
+    "next_cursor": "eyJpZCI6MTQ0",
+    "has_more": true,
+    "limit": 20
+  }
+}</code></pre>
+                
+                <h4>API Versioning</h4>
+                <h5>URL Versioning</h5>
+                <pre><code>// Version in URL path
+GET /api/v1/users
+GET /api/v2/users
+
+// Version in subdomain
+GET https://v1.api.example.com/users</code></pre>
+                
+                <h5>Header Versioning</h5>
+                <pre><code>GET /api/users
+Accept: application/vnd.api+json;version=1</code></pre>
+                
+                <h4>Security Best Practices</h4>
+                <ul>
+                    <li><strong>Authentication</strong> - JWT tokens, OAuth 2.0</li>
+                    <li><strong>Rate Limiting</strong> - Prevent API abuse</li>
+                    <li><strong>Input Validation</strong> - Sanitize all inputs</li>
+                    <li><strong>HTTPS Only</strong> - Encrypt all communications</li>
+                    <li><strong>CORS</strong> - Proper cross-origin configuration</li>
+                </ul>
+                
+                <h4>Documentation</h4>
+                <h5>OpenAPI/Swagger</h5>
+                <pre><code>openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'</code></pre>
+            `
+        },
+        25: {
+            title: "Testing Strategies: Unit, Integration, dan E2E Testing",
+            category: "Programming",
+            date: "20 Nov 2024",
+            views: "1,876 views",
+            image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=300&fit=crop",
+            content: `
+                <h3>Comprehensive Testing Strategy</h3>
+                <p>Testing adalah investasi dalam kualitas software. Strategy yang baik dapat mencegah bugs, meningkatkan confidence, dan mempercepat development cycle.</p>
+                
+                <h4>Testing Pyramid</h4>
+                <h5>Unit Tests (Base)</h5>
+                <ul>
+                    <li><strong>Fast</strong> - Milliseconds execution time</li>
+                    <li><strong>Isolated</strong> - Test individual functions/methods</li>
+                    <li><strong>Abundant</strong> - 70% of total tests</li>
+                    <li><strong>Cheap</strong> - Easy to write dan maintain</li>
+                </ul>
+                
+                <h5>Integration Tests (Middle)</h5>
+                <ul>
+                    <li><strong>Component Integration</strong> - Test module interactions</li>
+                    <li><strong>Database Integration</strong> - Test with real database</li>
+                    <li><strong>API Integration</strong> - Test external service calls</li>
+                    <li><strong>Moderate Speed</strong> - Seconds execution time</li>
+                </ul>
+                
+                <h5>E2E Tests (Top)</h5>
+                <ul>
+                    <li><strong>User Journey</strong> - Test complete workflows</li>
+                    <li><strong>Browser Automation</strong> - Real user interactions</li>
+                    <li><strong>Slow</strong> - Minutes execution time</li>
+                    <li><strong>Expensive</strong> - Complex setup dan maintenance</li>
+                </ul>
+                
+                <h4>Unit Testing Best Practices</h4>
+                <h5>Jest Example</h5>
+                <pre><code>// Function to test
+function calculateTotal(items, taxRate = 0.1) {
+    const subtotal = items.reduce((sum, item) => sum + item.price, 0);
+    return subtotal * (1 + taxRate);
+}
+
+// Unit tests
+describe('calculateTotal', () => {
+    test('should calculate total with default tax rate', () => {
+        const items = [
+            { price: 100 },
+            { price: 200 }
+        ];
+        expect(calculateTotal(items)).toBe(330);
+    });
+    
+    test('should calculate total with custom tax rate', () => {
+        const items = [{ price: 100 }];
+        expect(calculateTotal(items, 0.2)).toBe(120);
+    });
+    
+    test('should handle empty items array', () => {
+        expect(calculateTotal([])).toBe(0);
+    });
+});</code></pre>
+                
+                <h4>Integration Testing</h4>
+                <h5>API Testing dengan Supertest</h5>
+                <pre><code>const request = require('supertest');
+const app = require('../app');
+
+describe('User API', () => {
+    test('POST /users should create new user', async () => {
+        const userData = {
+            name: 'John Doe',
+            email: 'john@example.com'
+        };
+        
+        const response = await request(app)
+            .post('/api/users')
+            .send(userData)
+            .expect(201);
+            
+        expect(response.body.data.name).toBe(userData.name);
+        expect(response.body.data.email).toBe(userData.email);
+    });
+});</code></pre>
+                
+                <h4>E2E Testing</h4>
+                <h5>Cypress Example</h5>
+                <pre><code>describe('User Registration Flow', () => {
+    it('should allow user to register and login', () => {
+        cy.visit('/register');
+        
+        // Fill registration form
+        cy.get('[data-cy=name-input]').type('John Doe');
+        cy.get('[data-cy=email-input]').type('john@example.com');
+        cy.get('[data-cy=password-input]').type('password123');
+        cy.get('[data-cy=submit-btn]').click();
+        
+        // Verify redirect to dashboard
+        cy.url().should('include', '/dashboard');
+        cy.get('[data-cy=welcome-message]')
+            .should('contain', 'Welcome, John Doe');
+    });
+});</code></pre>
+                
+                <h4>Test-Driven Development (TDD)</h4>
+                <h5>Red-Green-Refactor Cycle</h5>
+                <ol>
+                    <li><strong>Red</strong> - Write failing test first</li>
+                    <li><strong>Green</strong> - Write minimal code to pass</li>
+                    <li><strong>Refactor</strong> - Improve code quality</li>
+                </ol>
+                
+                <h4>Mocking dan Stubbing</h4>
+                <h5>Jest Mocks</h5>
+                <pre><code>// Mock external API
+jest.mock('../services/userService');
+const userService = require('../services/userService');
+
+test('should handle API error gracefully', async () => {
+    userService.getUser.mockRejectedValue(
+        new Error('API Error')
+    );
+    
+    const result = await getUserProfile(123);
+    expect(result.error).toBe('Failed to fetch user');
+});</code></pre>
+                
+                <h4>Performance Testing</h4>
+                <ul>
+                    <li><strong>Load Testing</strong> - Normal expected load</li>
+                    <li><strong>Stress Testing</strong> - Beyond normal capacity</li>
+                    <li><strong>Spike Testing</strong> - Sudden load increases</li>
+                    <li><strong>Volume Testing</strong> - Large amounts of data</li>
+                </ul>
+                
+                <h4>Testing Metrics</h4>
+                <ul>
+                    <li><strong>Code Coverage</strong> - Percentage of code tested</li>
+                    <li><strong>Test Execution Time</strong> - Speed of test suite</li>
+                    <li><strong>Flaky Test Rate</strong> - Tests that fail intermittently</li>
+                    <li><strong>Bug Detection Rate</strong> - Bugs caught by tests</li>
+                </ul>
+            `
+        },
+        26: {
+            title: "Docker dan Containerization: Panduan Lengkap untuk Developer",
+            category: "Programming",
+            date: "18 Nov 2024",
+            views: "2,456 views",
+            image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=600&h=300&fit=crop",
+            content: `
+                <h3>Containerization Revolution</h3>
+                <p>Docker telah mengubah cara kita deploy dan manage aplikasi. Containerization memungkinkan aplikasi berjalan konsisten di berbagai environment.</p>
+                
+                <h4>Apa itu Docker?</h4>
+                <p>Docker adalah platform containerization yang memungkinkan packaging aplikasi beserta dependencies-nya dalam lightweight, portable containers.</p>
+                
+                <h4>Core Concepts</h4>
+                <h5>Images vs Containers</h5>
+                <ul>
+                    <li><strong>Docker Image</strong> - Template read-only untuk membuat containers</li>
+                    <li><strong>Container</strong> - Running instance dari image</li>
+                    <li><strong>Dockerfile</strong> - Script untuk build custom images</li>
+                    <li><strong>Registry</strong> - Repository untuk menyimpan images (Docker Hub)</li>
+                </ul>
+                
+                <h4>Basic Docker Commands</h4>
+                <pre><code># Pull image dari registry
+docker pull nginx:latest
+
+# Run container
+docker run -d -p 80:80 --name my-nginx nginx
+
+# List running containers
+docker ps
+
+# Stop container
+docker stop my-nginx
+
+# Remove container
+docker rm my-nginx
+
+# List images
+docker images
+
+# Remove image
+docker rmi nginx:latest</code></pre>
+                
+                <h4>Creating Dockerfile</h4>
+                <h5>Node.js Application Example</h5>
+                <pre><code># Use official Node.js runtime
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjs
+
+# Start application
+CMD ["npm", "start"]</code></pre>
+                
+                <h4>Docker Compose</h4>
+                <h5>Multi-container Applications</h5>
+                <pre><code>version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://user:pass@db:5432/myapp
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:</code></pre>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Multi-stage Builds</strong> - Reduce image size</li>
+                    <li><strong>Layer Caching</strong> - Optimize build times</li>
+                    <li><strong>Security</strong> - Use non-root users, scan images</li>
+                    <li><strong>Health Checks</strong> - Monitor container health</li>
+                    <li><strong>.dockerignore</strong> - Exclude unnecessary files</li>
+                </ul>
+            `
+        },
+        27: {
+            title: "GraphQL vs REST API: Memilih Architecture yang Tepat",
+            category: "Programming",
+            date: "16 Nov 2024",
+            views: "1,789 views",
+            image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop",
+            content: `
+                <h3>API Architecture Comparison</h3>
+                <p>GraphQL dan REST adalah dua pendekatan berbeda untuk membangun APIs. Masing-masing memiliki kelebihan dan use cases yang tepat.</p>
+                
+                <h4>REST API Overview</h4>
+                <h5>Karakteristik REST</h5>
+                <ul>
+                    <li><strong>Resource-based</strong> - URLs represent resources</li>
+                    <li><strong>HTTP Methods</strong> - GET, POST, PUT, DELETE</li>
+                    <li><strong>Stateless</strong> - Each request is independent</li>
+                    <li><strong>Multiple Endpoints</strong> - Different URLs for different data</li>
+                </ul>
+                
+                <h5>REST Example</h5>
+                <pre><code>// Get user
+GET /api/users/123
+
+// Get user posts
+GET /api/users/123/posts
+
+// Get post comments
+GET /api/posts/456/comments</code></pre>
+                
+                <h4>GraphQL Overview</h4>
+                <h5>Karakteristik GraphQL</h5>
+                <ul>
+                    <li><strong>Query Language</strong> - Flexible data fetching</li>
+                    <li><strong>Single Endpoint</strong> - One URL for all operations</li>
+                    <li><strong>Type System</strong> - Strongly typed schema</li>
+                    <li><strong>Real-time</strong> - Built-in subscriptions</li>
+                </ul>
+                
+                <h5>GraphQL Example</h5>
+                <pre><code>// Single query for user, posts, and comments
+query GetUserData {
+  user(id: "123") {
+    name
+    email
+    posts {
+      title
+      content
+      comments {
+        author
+        text
+      }
+    }
+  }
+}</code></pre>
+                
+                <h4>Comparison Table</h4>
+                <table class="w-full border-collapse border border-gray-300 mt-4">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-2">Aspect</th>
+                            <th class="border border-gray-300 p-2">REST</th>
+                            <th class="border border-gray-300 p-2">GraphQL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-2"><strong>Learning Curve</strong></td>
+                            <td class="border border-gray-300 p-2">Easy</td>
+                            <td class="border border-gray-300 p-2">Moderate</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2"><strong>Caching</strong></td>
+                            <td class="border border-gray-300 p-2">HTTP caching</td>
+                            <td class="border border-gray-300 p-2">Complex</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2"><strong>Over/Under-fetching</strong></td>
+                            <td class="border border-gray-300 p-2">Common issue</td>
+                            <td class="border border-gray-300 p-2">Solved</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2"><strong>Real-time</strong></td>
+                            <td class="border border-gray-300 p-2">WebSockets/SSE</td>
+                            <td class="border border-gray-300 p-2">Built-in subscriptions</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>When to Use REST</h4>
+                <ul>
+                    <li><strong>Simple CRUD operations</strong></li>
+                    <li><strong>Caching is important</strong></li>
+                    <li><strong>Team familiar with REST</strong></li>
+                    <li><strong>File uploads/downloads</strong></li>
+                </ul>
+                
+                <h4>When to Use GraphQL</h4>
+                <ul>
+                    <li><strong>Complex data relationships</strong></li>
+                    <li><strong>Mobile applications</strong> - Bandwidth optimization</li>
+                    <li><strong>Rapid frontend development</strong></li>
+                    <li><strong>Real-time features</strong></li>
+                </ul>
+            `
+        },
+        28: {
+            title: "Serverless Computing: AWS Lambda dan Cloud Functions",
+            category: "Technology",
+            date: "14 Nov 2024",
+            views: "1,654 views",
+            image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=300&fit=crop",
+            content: `
+                <h3>The Serverless Revolution</h3>
+                <p>Serverless computing memungkinkan developers fokus pada code tanpa memikirkan server management. Pay-per-execution model yang cost-effective.</p>
+                
+                <h4>What is Serverless?</h4>
+                <p>Serverless tidak berarti "tanpa server", tapi server management di-handle oleh cloud provider. Developer hanya perlu deploy code.</p>
+                
+                <h4>Key Benefits</h4>
+                <ul>
+                    <li><strong>No Server Management</strong> - Cloud provider handles infrastructure</li>
+                    <li><strong>Auto Scaling</strong> - Scales automatically based on demand</li>
+                    <li><strong>Pay-per-Use</strong> - Only pay for execution time</li>
+                    <li><strong>Fast Deployment</strong> - Quick time to market</li>
+                </ul>
+                
+                <h4>AWS Lambda Example</h4>
+                <h5>Node.js Function</h5>
+                <pre><code>exports.handler = async (event) => {
+    console.log('Event:', JSON.stringify(event, null, 2));
+    
+    const { name } = JSON.parse(event.body);
+    
+    // Business logic
+    const greeting = \`Hello, \${name}! Welcome to serverless.\`;
+    
+    return {
+        statusCode: 200,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+            message: greeting,
+            timestamp: new Date().toISOString()
+        })
+    };
+};</code></pre>
+                
+                <h4>Serverless Framework</h4>
+                <h5>serverless.yml Configuration</h5>
+                <pre><code>service: my-serverless-app
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    STAGE: \${opt:stage, 'dev'}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: post
+          cors: true
+  
+  processData:
+    handler: handler.processData
+    events:
+      - s3:
+          bucket: my-data-bucket
+          event: s3:ObjectCreated:*
+
+resources:
+  Resources:
+    MyDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users-\${self:provider.environment.STAGE}
+        BillingMode: PAY_PER_REQUEST</code></pre>
+                
+                <h4>Common Use Cases</h4>
+                <h5>API Backends</h5>
+                <ul>
+                    <li>REST API endpoints</li>
+                    <li>GraphQL resolvers</li>
+                    <li>Webhook handlers</li>
+                </ul>
+                
+                <h5>Data Processing</h5>
+                <ul>
+                    <li>Image/video processing</li>
+                    <li>ETL pipelines</li>
+                    <li>Real-time stream processing</li>
+                </ul>
+                
+                <h5>Automation</h5>
+                <ul>
+                    <li>Scheduled tasks (cron jobs)</li>
+                    <li>Database cleanup</li>
+                    <li>Notification systems</li>
+                </ul>
+                
+                <h4>Limitations</h4>
+                <ul>
+                    <li><strong>Cold Starts</strong> - Initial execution latency</li>
+                    <li><strong>Execution Time Limits</strong> - Max 15 minutes for Lambda</li>
+                    <li><strong>Vendor Lock-in</strong> - Platform-specific features</li>
+                    <li><strong>Debugging Complexity</strong> - Distributed system challenges</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Keep Functions Small</strong> - Single responsibility</li>
+                    <li><strong>Optimize Cold Starts</strong> - Minimize dependencies</li>
+                    <li><strong>Use Environment Variables</strong> - Configuration management</li>
+                    <li><strong>Implement Proper Logging</strong> - CloudWatch integration</li>
+                </ul>
+            `
+        },
+        29: {
+            title: "Progressive Web Apps (PWA): Native Experience di Web",
+            category: "Technology",
+            date: "12 Nov 2024",
+            views: "2,123 views",
+            image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=300&fit=crop",
+            content: `
+                <h3>Bridging Web and Native</h3>
+                <p>Progressive Web Apps menggabungkan yang terbaik dari web dan mobile apps, memberikan native-like experience dengan teknologi web.</p>
+                
+                <h4>PWA Core Features</h4>
+                <ul>
+                    <li><strong>Progressive</strong> - Works for every user</li>
+                    <li><strong>Responsive</strong> - Fits any form factor</li>
+                    <li><strong>Offline-first</strong> - Works without internet</li>
+                    <li><strong>App-like</strong> - Native app interactions</li>
+                    <li><strong>Installable</strong> - Add to home screen</li>
+                </ul>
+                
+                <h4>Service Workers</h4>
+                <p>Heart of PWA - JavaScript yang berjalan di background, memungkinkan offline functionality dan push notifications.</p>
+                
+                <h5>Basic Service Worker</h5>
+                <pre><code>// sw.js
+const CACHE_NAME = 'my-pwa-v1';
+const urlsToCache = [
+  '/',
+  '/styles/main.css',
+  '/scripts/main.js',
+  '/images/logo.png'
+];
+
+// Install event
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+
+// Fetch event
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+      .then((response) => {
+        // Return cached version or fetch from network
+        return response || fetch(event.request);
+      })
+  );
+});</code></pre>
+                
+                <h4>Web App Manifest</h4>
+                <h5>manifest.json</h5>
+                <pre><code>{
+  "name": "My Progressive Web App",
+  "short_name": "MyPWA",
+  "description": "A sample progressive web app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}</code></pre>
+                
+                <h4>Caching Strategies</h4>
+                <h5>Cache First</h5>
+                <p>Serve dari cache dulu, fallback ke network jika tidak ada.</p>
+                
+                <h5>Network First</h5>
+                <p>Coba network dulu, fallback ke cache jika offline.</p>
+                
+                <h5>Stale While Revalidate</h5>
+                <p>Serve dari cache sambil update di background.</p>
+                
+                <h4>Push Notifications</h4>
+                <pre><code>// Register for push notifications
+navigator.serviceWorker.ready.then((registration) => {
+  return registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+  });
+}).then((subscription) => {
+  // Send subscription to server
+  fetch('/api/subscribe', {
+    method: 'POST',
+    body: JSON.stringify(subscription),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+});</code></pre>
+                
+                <h4>PWA Tools dan Frameworks</h4>
+                <ul>
+                    <li><strong>Workbox</strong> - Google's PWA library</li>
+                    <li><strong>PWA Builder</strong> - Microsoft's PWA tools</li>
+                    <li><strong>Lighthouse</strong> - PWA auditing tool</li>
+                    <li><strong>Next.js PWA</strong> - React-based PWA framework</li>
+                </ul>
+                
+                <h4>Benefits</h4>
+                <ul>
+                    <li><strong>Improved Performance</strong> - Faster loading</li>
+                    <li><strong>Offline Access</strong> - Works without internet</li>
+                    <li><strong>Lower Development Cost</strong> - One codebase</li>
+                    <li><strong>Easy Updates</strong> - No app store approval</li>
+                </ul>
+            `
+        },
+        30: {
+            title: "Cybersecurity untuk Developer: Secure Coding Practices",
+            category: "Programming",
+            date: "10 Nov 2024",
+            views: "2,987 views",
+            image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=300&fit=crop",
+            content: `
+                <h3>Security-First Development</h3>
+                <p>Cybersecurity bukan hanya tanggung jawab security team. Developer perlu memahami secure coding practices untuk membangun aplikasi yang aman.</p>
+                
+                <h4>OWASP Top 10 Vulnerabilities</h4>
+                <h5>1. Injection Attacks</h5>
+                <p>SQL injection, NoSQL injection, Command injection</p>
+                <pre><code>// Vulnerable code
+const query = \`SELECT * FROM users WHERE id = \${userId}\`;
+
+// Secure code - Parameterized queries
+const query = 'SELECT * FROM users WHERE id = ?';
+db.query(query, [userId]);</code></pre>
+                
+                <h5>2. Broken Authentication</h5>
+                <ul>
+                    <li>Weak password policies</li>
+                    <li>Session management flaws</li>
+                    <li>Missing multi-factor authentication</li>
+                </ul>
+                
+                <h5>3. Sensitive Data Exposure</h5>
+                <pre><code>// Secure password hashing
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
+
+const hashPassword = async (password) => {
+  return await bcrypt.hash(password, saltRounds);
+};
+
+const verifyPassword = async (password, hash) => {
+  return await bcrypt.compare(password, hash);
+};</code></pre>
+                
+                <h4>Input Validation</h4>
+                <h5>Server-side Validation</h5>
+                <pre><code>const validator = require('validator');
+
+const validateUser = (userData) => {
+  const errors = [];
+  
+  if (!validator.isEmail(userData.email)) {
+    errors.push('Invalid email format');
+  }
+  
+  if (!validator.isLength(userData.password, { min: 8 })) {
+    errors.push('Password must be at least 8 characters');
+  }
+  
+  if (!validator.matches(userData.password, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)) {
+    errors.push('Password must contain uppercase, lowercase, and number');
+  }
+  
+  return errors;
+};</code></pre>
+                
+                <h4>Authentication & Authorization</h4>
+                <h5>JWT Implementation</h5>
+                <pre><code>const jwt = require('jsonwebtoken');
+
+// Generate token
+const generateToken = (user) => {
+  return jwt.sign(
+    { 
+      id: user.id, 
+      email: user.email,
+      role: user.role 
+    },
+    process.env.JWT_SECRET,
+    { 
+      expiresIn: '1h',
+      issuer: 'myapp',
+      audience: 'myapp-users'
+    }
+  );
+};
+
+// Verify token middleware
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+  
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+};</code></pre>
+                
+                <h4>Cross-Site Scripting (XSS) Prevention</h4>
+                <h5>Output Encoding</h5>
+                <pre><code>const DOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+
+const window = new JSDOM('').window;
+const purify = DOMPurify(window);
+
+// Sanitize user input
+const sanitizeHtml = (dirty) => {
+  return purify.sanitize(dirty);
+};
+
+// Content Security Policy
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline'"
+  );
+  next();
+});</code></pre>
+                
+                <h4>HTTPS dan Security Headers</h4>
+                <pre><code>const helmet = require('helmet');
+
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"]
+    }
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+}));</code></pre>
+                
+                <h4>Security Testing</h4>
+                <ul>
+                    <li><strong>Static Analysis</strong> - SonarQube, ESLint security rules</li>
+                    <li><strong>Dependency Scanning</strong> - npm audit, Snyk</li>
+                    <li><strong>Penetration Testing</strong> - OWASP ZAP, Burp Suite</li>
+                    <li><strong>Security Code Review</strong> - Manual review process</li>
+                </ul>
+                
+                <h4>Best Practices</h4>
+                <ul>
+                    <li><strong>Principle of Least Privilege</strong> - Minimal necessary permissions</li>
+                    <li><strong>Defense in Depth</strong> - Multiple security layers</li>
+                    <li><strong>Fail Securely</strong> - Secure failure modes</li>
+                    <li><strong>Keep Dependencies Updated</strong> - Regular security patches</li>
+                </ul>
+            `
+        }
+    };
+
+    // Pagination system
+    const articlesPerPage = 13;
+    let currentPage = 1;
+    const totalArticles = Object.keys(articles).length;
+    const totalPages = Math.ceil(totalArticles / articlesPerPage);
+
+    // Get articles for specific page
+    function getArticlesForPage(page) {
+        const startIndex = (page - 1) * articlesPerPage + 1;
+        const endIndex = Math.min(page * articlesPerPage, totalArticles);
+        const pageArticles = {};
+        
+        for (let i = startIndex; i <= endIndex; i++) {
+            if (articles[i]) {
+                pageArticles[i] = articles[i];
+            }
+        }
+        return pageArticles;
+    }
+
+    // Display articles for current page
+    function displayCurrentPage() {
+        const pageArticles = getArticlesForPage(currentPage);
+        const blogCards = document.querySelectorAll('.blog-card');
+        
+        // Hide all articles first
+        blogCards.forEach(card => {
+            card.style.display = 'none';
+        });
+        
+        // Show articles for current page
+        Object.keys(pageArticles).forEach(id => {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (card) {
+                card.style.display = 'block';
+            }
+        });
+        
+        // Update pagination buttons
+        updatePaginationButtons();
+    }
+
+    // Update pagination button states
+    function updatePaginationButtons() {
+        const paginationBtns = document.querySelectorAll('.pagination-btn');
+        paginationBtns.forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.add('bg-white', 'border', 'border-gray-300', 'hover:bg-blue-600', 'hover:text-white');
+        });
+        
+        // Highlight current page
+        const currentBtn = document.querySelector(`.pagination-btn:nth-child(${currentPage + 1})`);
+        if (currentBtn && !currentBtn.querySelector('i')) {
+            currentBtn.classList.remove('bg-white', 'border', 'border-gray-300', 'hover:bg-blue-600', 'hover:text-white');
+            currentBtn.classList.add('bg-blue-600', 'text-white');
+        }
+    }
+
+    // DOM Elements
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const categoryTags = document.querySelectorAll('.category-tag');
+    const articlesContainer = document.getElementById('articlesContainer');
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    const articleModal = document.getElementById('articleModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalImage = document.getElementById('modalImage');
+    const modalContent = document.getElementById('modalContent');
+    const modalViews = document.getElementById('modalViews');
+
+    // Category filtering
+    categoryTags.forEach(tag => {
+        tag.addEventListener('click', function() {
+            const category = this.dataset.category;
+            
+            // Update active category
+            categoryTags.forEach(t => {
+                t.classList.remove('bg-blue-600', 'text-white');
+                t.classList.add('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
+            });
+            this.classList.remove('bg-gray-200', 'hover:bg-blue-600', 'hover:text-white');
+            this.classList.add('bg-blue-600', 'text-white');
+            
+            // Filter articles
+            const blogCards = document.querySelectorAll('.blog-card');
+            blogCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // Search functionality
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const blogCards = document.querySelectorAll('.blog-card');
+        
+        if (searchTerm === '') {
+            blogCards.forEach(card => {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            });
+            return;
+        }
+        
+        blogCards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const description = card.querySelector('p').textContent.toLowerCase();
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            } else {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    }
+
+    searchBtn.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+
+    // Pagination event listeners
+    document.querySelectorAll('.pagination-btn').forEach((btn, index) => {
+        btn.addEventListener('click', function() {
+            if (this.querySelector('.fa-chevron-left')) {
+                // Previous button
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayCurrentPage();
+                }
+            } else if (this.querySelector('.fa-chevron-right')) {
+                // Next button
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayCurrentPage();
+                }
+            } else {
+                // Number button
+                const pageNum = parseInt(this.textContent);
+                if (pageNum && pageNum !== currentPage) {
+                    currentPage = pageNum;
+                    displayCurrentPage();
+                }
+            }
+        });
+    });
+
+    // Initialize pagination on page load
+    displayCurrentPage();
+
+    // Modal functionality
+    readMoreBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const articleId = this.dataset.id;
+            const article = articles[articleId];
+            
+            if (article) {
+                modalTitle.textContent = article.title;
+                modalMeta.innerHTML = `
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold mr-3">${article.category}</span>
+                    <span><i class="fas fa-calendar mr-1"></i>${article.date}</span>
+                `;
+                modalImage.src = article.image;
+                modalImage.alt = article.title;
+                modalContent.innerHTML = article.content;
+                modalViews.textContent = article.views;
+                
+                articleModal.classList.remove('hidden');
+                articleModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    closeModal.addEventListener('click', function() {
+        articleModal.classList.add('hidden');
+        articleModal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    });
+
+    // Close modal when clicking outside
+    articleModal.addEventListener('click', function(e) {
+        if (e.target === articleModal) {
+            articleModal.classList.add('hidden');
+            articleModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Newsletter subscription
+    const newsletterBtn = document.querySelector('.bg-gradient-to-br button');
+    const newsletterInput = document.querySelector('.bg-gradient-to-br input[type="email"]');
+    
+    if (newsletterBtn && newsletterInput) {
+        newsletterBtn.addEventListener('click', function() {
+            const email = newsletterInput.value.trim();
+            if (email && email.includes('@')) {
+                this.innerHTML = '<i class="fas fa-check mr-2"></i>Subscribed!';
+                this.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
+                this.classList.add('bg-green-500');
+                newsletterInput.value = '';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Subscribe';
+                    this.classList.remove('bg-green-500');
+                    this.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
+                }, 3000);
+            } else {
+                this.innerHTML = '<i class="fas fa-exclamation mr-2"></i>Email Invalid';
+                this.classList.remove('bg-yellow-400', 'hover:bg-yellow-500');
+                this.classList.add('bg-red-500');
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Subscribe';
+                    this.classList.remove('bg-red-500');
+                    this.classList.add('bg-yellow-400', 'hover:bg-yellow-500');
+                }, 2000);
+            }
+        });
+    }
+
+    // Animasi fade-out saat pindah page
+    document.getElementById('homeLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.add('fade-out');
+        setTimeout(function() {
+            window.location.href = 'Project.html';
+        }, 600);
+    });
+
+    // Reveal animation saat scroll
+    function revealOnScroll() {
+        document.querySelectorAll('.reveal').forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 60) {
+                el.classList.add('visible');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+    // Smooth scrolling untuk internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>
